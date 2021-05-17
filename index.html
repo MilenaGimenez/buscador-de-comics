@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <link rel="stylesheet" href="./styles/css/style.css">
+    <title>Buscador de Cómics</title>
+</head>
+<body>
+    <header>
+        <section class="column logo-container">
+          <h1 class="logo">ADA COMICS</h1>
+        </section>
+      </header>
+
+    <section class="hero is-success is-halfheight ">
+        <div class="hero-body"></div>
+    </section>
+
+    <main class="container">
+        <nav class="navbar my-5" role="navigation" aria-label="main navigation">
+          <div id="navbarBasicExample" class="navbar-menu">
+              <label for="">Búsqueda</label>
+              <input class="input is-expanded is-half" type="text" placeholder="Normal input">
+            <div class="navbar-start">
+              <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                  Tipo
+                </a>
+                <div class="navbar-dropdown">
+                  <a class="navbar-item">
+                    Comics
+                  </a>
+                  <a class="navbar-item">
+                    Personajes
+                  </a>
+                </div>
+              </div>
+              <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                  Orden
+                </a>
+                <div class="navbar-dropdown">
+                  <a class="navbar-item">
+                    A-Z
+                  </a>
+                  <a class="navbar-item">
+                    Z-A
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="navbar-end">
+              <div class="navbar-item">
+                <div class="buttons">
+                  <a class="button is-light">
+                    Buscar
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+        <div id="root" class="columns is-flex-wrap-wrap">
+        </div>
+      </main>
+    
+      <footer class="container">
+        <nav class="pagination" role="navigation" aria-label="pagination">
+          <a id='boton1' class="pagination-previous" title="This is the first page">Previous</a>
+          <a id="boton2" class="pagination-next">Next page</a>
+          <ul class="pagination-list">
+            <li>
+              <a class="pagination-link is-current" aria-label="Page 1" aria-current="page">1</a>
+            </li>
+            <li>
+              <a class="pagination-link" aria-label="Goto page 2">2</a>
+            </li>
+            <li>
+              <a class="pagination-link" aria-label="Goto page 3">3</a>
+            </li>
+          </ul>
+        </nav>
+      </footer>
+    
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.18.0/js/md5.min.js" integrity="sha512-Hmp6qDy9imQmd15Ds1WQJ3uoyGCUz5myyr5ijainC1z+tP7wuXcze5ZZR3dF7+rkRALfNy7jcfgS5hH8wJ/2dQ==" crossorigin="anonymous"></script>
+    <script src="./js/operations.js"></script>
+    <script src="./js/print.js"></script>
+</body>
+</html>
