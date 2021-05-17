@@ -1,7 +1,9 @@
 .img {
-  background-image: url("https://frontend-proyecto-comics.adaitw.org/hero.jpg");
-  background-position: bottom;
+  background-image: url("../../assets/hero.jpg");
+  background-position: center;
   background-size: cover;
-}
-
+  background-repeat: no-repeat;
+  width: 100%;
+  
 /*# sourceMappingURL=style.css.map */
+}
