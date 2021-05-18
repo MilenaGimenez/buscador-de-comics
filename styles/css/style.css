@@ -1,27 +1,24 @@
 @font-face {
   font-family: "American Captain";
-  src: url("../../assets/fonts/american_captain/American\ Captain.ttf");
+  src: url("../../assets/fonts/american_captain/American Captain.ttf");
 }
-
-*{
+* {
   font-family: "American Captain";
 }
 
 .img {
-  background-image: url("../../assets/hero.jpg");
-  background-position: center;
+  background-image: url("https://frontend-proyecto-comics.adaitw.org/hero.jpg");
+  background-position: bottom;
   background-size: cover;
-  background-repeat: no-repeat;
-  width: 100%;
-  
-/*# sourceMappingURL=style.css.map */
 }
 
-.marvel-logo{
+.marvel-logo {
   width: 9%;
 }
 
-.logo{
+.logo {
   display: flex;
   justify-content: center;
 }
+
+/*# sourceMappingURL=style.css.map */

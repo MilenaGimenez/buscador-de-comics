@@ -1,5 +1,23 @@
+@font-face {
+    font-family: "American Captain";
+    src: url("../../assets/fonts/american_captain/American\ Captain.ttf");
+  }
+
+*{
+    font-family: "American Captain";
+}
+
 .img{
     background-image: url('https://frontend-proyecto-comics.adaitw.org/hero.jpg');
     background-position: bottom;
-    background-size: cover;
+    background-size: cover;    
+}
+
+.marvel-logo{
+    width: 9%;
+  }
+  
+.logo{
+    display: flex;
+    justify-content: center;
 }
