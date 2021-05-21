@@ -9,6 +9,7 @@ const btnNext = document.getElementById('btn-next');
 const btnLast = document.getElementById('btn-last');
 
 let offset = 0;
+let resultsCount = 0
 
 const fetchData = () => {
     const url = `http://gateway.marvel.com/v1/public/comics?limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`
@@ -19,6 +20,16 @@ const fetchData = () => {
 }
 
 fetchData()
+
+const fetchTotalComics = () => {
+    const url = 'https://gateway.marvel.com:443/v1/public/comics?apikey=e9522784cddc10be1873e2688faf099b'
+    fetch(url)
+    .then(respuesta => respuesta.json())
+    .then(obj => obtenerUltimoComic(obj.data.total))
+    .catch(error => console.error(error))
+}
+
+fetchTotalComics()
 
 //----------------- PAGINADORES PREVIOUS & NEXT -----------------
 btnFirst.addEventListener('click', () => {
@@ -31,8 +42,14 @@ btnFirst.addEventListener('click', () => {
 btnPrevious.addEventListener('click', () => {
     offset -= 20;
     fetchData()   
+    fetchTotalComics()
+    obtenerUltimoComic()
     offset === 0 ? btnPrevious.setAttribute("disabled", true) : false  
     offset === 0 ? btnFirst.setAttribute("disabled", true) : false   
+
+    //se desbloquean los dos ultimos
+    offset !== 0 ? btnNext.removeAttribute("disabled") : false    
+    offset !== 0 ? btnLast.removeAttribute("disabled") : false  
 });
 
 btnNext.addEventListener('click', () => {
@@ -41,3 +58,18 @@ btnNext.addEventListener('click', () => {
     offset !== 0 ? btnPrevious.removeAttribute("disabled") : false    
     offset !== 0 ? btnFirst.removeAttribute("disabled") : false    
 });
+
+const obtenerUltimoComic = last => {
+    btnLast.addEventListener('click', () => {
+        offset = last - 20;
+        fetchData() 
+        
+        //cuando se apreta el ultimo se bloquean los dos ultimos
+        offset = last - 20 ? btnNext.setAttribute("disabled", true) : false   
+        offset = last - 20 ? btnLast.setAttribute("disabled", true) : false 
+
+        //cuando se apreta el ultimo se desbloquean los dos primeros
+        offset = last - 20 ? btnPrevious.removeAttribute("disabled") : false 
+        offset = last - 20 ? btnFirst.removeAttribute("disabled") : false
+    });  
+}
