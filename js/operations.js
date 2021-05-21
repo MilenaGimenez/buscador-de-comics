@@ -1,10 +1,10 @@
 const privada = '37afe0670192f2777f64326bf4c80cc1e14ff271';
 const publica = 'e9522784cddc10be1873e2688faf099b';
 const timestamp = Date.now();
-
 const hash = md5(timestamp + privada + publica);
-const boton1 = document.getElementById('boton1');
-const boton2 = document.getElementById('boton2');
+
+const btnPrevious = document.getElementById('btn-previous');
+const btnNext = document.getElementById('btn-next');
 
 let offset = 0;
 
@@ -18,12 +18,16 @@ const fetchData = () => {
 
 fetchData()
 
-boton1.addEventListener('click', () => {
-    offset -= 20;
-    fetchData()
-})
+//----------------- PAGINADORES PREVIOUS & NEXT -----------------
 
-boton2.addEventListener('click', () => {
-    offset += 20;
+btnPrevious.addEventListener('click', () => {
+    offset -= 20;
+    fetchData()   
+    offset === 0 ? btnPrevious.setAttribute("disabled", true) : false    
+});
+
+btnNext.addEventListener('click', () => {
+    offset += 20;    
     fetchData()
-})
+    offset !== 0 ? btnPrevious.removeAttribute("disabled") : false    
+});
