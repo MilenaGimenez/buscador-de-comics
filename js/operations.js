@@ -3,6 +3,8 @@ const publica = 'e9522784cddc10be1873e2688faf099b';
 const timestamp = Date.now();
 
 const hash = md5(timestamp + privada + publica);
+const boton1 = document.getElementById('boton1');
+const boton2 = document.getElementById('boton2');
 
 let offset = 0;
 
@@ -15,3 +17,13 @@ const fetchData = () => {
 }
 
 fetchData()
+
+boton1.addEventListener('click', () => {
+    offset -= 20;
+    fetchData()
+})
+
+boton2.addEventListener('click', () => {
+    offset += 20;
+    fetchData()
+})
