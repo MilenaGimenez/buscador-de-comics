@@ -4,7 +4,7 @@
   }
 
 *{
-    font-family: "American Captain";
+    font-family: 'Roboto', sans-serif;
 }
 
 .img{
@@ -14,10 +14,14 @@
 }
 
 .marvel-logo{
-    width: 9%;
+    width: 120px;
   }
   
 .logo{
     display: flex;
     justify-content: center;
+}
+
+.american-font{
+    font-family: "American Captain";
 }

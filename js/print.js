@@ -20,7 +20,7 @@ const printData = arr => {
                 <figure>
                     <a href="#">
                         <img src="${path === pathNonFoundNowanted ? pathNonFoundWanted : path}.${extension}" alt="${title}">
-                        <p>${title}</p>
+                        <p class="american-font">${title}</p>
                     </a>
                 </figure>
             </div>`    
