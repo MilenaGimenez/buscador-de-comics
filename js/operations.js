@@ -25,7 +25,7 @@ const fetchTotalComics = () => {
     const url = 'https://gateway.marvel.com:443/v1/public/comics?apikey=e9522784cddc10be1873e2688faf099b'
     fetch(url)
     .then(respuesta => respuesta.json())
-    .then(obj => obtenerUltimoComic(obj.data.total))
+    .then(obj => resultsCount = obj.data.total)
     .catch(error => console.error(error))
 }
 
@@ -37,39 +37,80 @@ btnFirst.addEventListener('click', () => {
     fetchData() 
     offset === 0 ? btnPrevious.setAttribute("disabled", true) : false
     offset === 0 ? btnFirst.setAttribute("disabled", true) : false 
+    console.log(`btnFirst: el offset es de ${offset}`);
 });
 
+//boton del problema
 btnPrevious.addEventListener('click', () => {
-    offset -= 20;
+    console.log('offset actual', offset)
     fetchData()   
     fetchTotalComics()
-    obtenerUltimoComic()
+    //obtenerUltimoComic()
+    
+    offset -= 20;
     offset === 0 ? btnPrevious.setAttribute("disabled", true) : false  
     offset === 0 ? btnFirst.setAttribute("disabled", true) : false   
 
     //se desbloquean los dos ultimos
     offset !== 0 ? btnNext.removeAttribute("disabled") : false    
     offset !== 0 ? btnLast.removeAttribute("disabled") : false  
+
+    console.log(`btnPrevious: el offset es de ${offset}`);
 });
 
 btnNext.addEventListener('click', () => {
     offset += 20;    
     fetchData()
     offset !== 0 ? btnPrevious.removeAttribute("disabled") : false    
-    offset !== 0 ? btnFirst.removeAttribute("disabled") : false    
+    offset !== 0 ? btnFirst.removeAttribute("disabled") : false   
+    
+    console.log(`btnNext: el offset es de ${offset}`);
 });
 
-const obtenerUltimoComic = last => {
+/* const obtenerUltimoComic = () => {
     btnLast.addEventListener('click', () => {
-        offset = last - 20;
-        fetchData() 
+        console.log(`soy el offset antes de todo: ${offset}`);
+        let cuenta = resultsCount - 20;
+        //console.log('suma offset y cuenta', offset += cuenta);
+        offset += cuenta
+        console.log(`soy el offset: ${offset}`);
+        console.log('soy cuenta', cuenta);
         
         //cuando se apreta el ultimo se bloquean los dos ultimos
-        offset = last - 20 ? btnNext.setAttribute("disabled", true) : false   
-        offset = last - 20 ? btnLast.setAttribute("disabled", true) : false 
+        offset = resultsCount - 20 ? btnNext.setAttribute("disabled", true) : false   
+        offset = resultsCount - 20 ? btnLast.setAttribute("disabled", true) : false 
 
         //cuando se apreta el ultimo se desbloquean los dos primeros
-        offset = last - 20 ? btnPrevious.removeAttribute("disabled") : false 
-        offset = last - 20 ? btnFirst.removeAttribute("disabled") : false
+        offset = resultsCount - 20 ? btnPrevious.removeAttribute("disabled") : false 
+        offset = resultsCount - 20 ? btnFirst.removeAttribute("disabled") : false
+
+        //console.log(`btnLast: el offset es de ${offset}`);
+
+        console.log(`btnLast: el resultsCount es de ${resultsCount}`);
+        console.log(`la cuenta da ${cuenta}`);
+        console.log(typeof cuenta);
+
+        fetchData() 
+        fetchTotalComics()
     });  
-}
+} */
+
+/* const obtenerUltimoComic = () => { */
+    btnLast.addEventListener('click', () => {
+        console.log('offset antes apretar last', offset)
+        offset += resultsCount - 20;
+        fetchData() 
+
+        //cuando se apreta el ultimo se bloquean los dos ultimos
+        offset = resultsCount - 20 ? btnNext.setAttribute("disabled", true) : false   
+        offset = resultsCount - 20 ? btnLast.setAttribute("disabled", true) : false 
+
+        //cuando se apreta el ultimo se desbloquean los dos primeros
+        offset = resultsCount - 20 ? btnPrevious.removeAttribute("disabled") : false 
+        offset = resultsCount - 20 ? btnFirst.removeAttribute("disabled") : false
+
+        console.log('offset tras apretar last', offset)
+    });  
+/* }
+
+obtenerUltimoComic() */
