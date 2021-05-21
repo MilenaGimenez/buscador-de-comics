@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
     <link rel="stylesheet" href="./styles/css/style.css">
     <title>Buscador MARVEL Cómics</title>
@@ -73,11 +74,16 @@
         </div>
       </main>
     
-      <section class="container my-6">
-        <nav class="pagination" role="navigation" aria-label="pagination">
-          <a id='btn-previous' class="pagination-previous" disabled>Previous</a>
-          <a id="btn-next" class="pagination-next">Next page</a>
-          <ul class="pagination-list">
+      <section class="container my-6 has-text-centered">
+        <!-- <nav class="pagination" role="navigation" aria-label="pagination"> -->
+          <a id="btn-first" class="first-page pagination-next" disabled><i class="fas fa-angle-double-left"></i></a>
+
+          <a id='btn-previous' class="pagination-previous" disabled><i class="fas fa-angle-left"></i></a>
+
+          <a id="btn-next" class="pagination-next"><i class="fas fa-angle-right"></i></a>
+
+          <a id="btn-last" class="last-page pagination-next"><i class="fas fa-angle-double-right"></i></a>
+          <!-- <ul class="pagination-list">
             <li>
               <a class="pagination-link is-current" aria-label="Page 1" aria-current="page">1</a>
             </li>
@@ -87,8 +93,8 @@
             <li>
               <a class="pagination-link" aria-label="Goto page 3">3</a>
             </li>
-          </ul>
-        </nav>
+          </ul> -->
+        <!-- </nav> -->
       </section>
     
       <footer class="hero">

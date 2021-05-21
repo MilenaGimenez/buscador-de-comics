@@ -3,8 +3,10 @@ const publica = 'e9522784cddc10be1873e2688faf099b';
 const timestamp = Date.now();
 const hash = md5(timestamp + privada + publica);
 
+const btnFirst = document.getElementById('btn-first');
 const btnPrevious = document.getElementById('btn-previous');
 const btnNext = document.getElementById('btn-next');
+const btnLast = document.getElementById('btn-last');
 
 let offset = 0;
 
@@ -19,15 +21,23 @@ const fetchData = () => {
 fetchData()
 
 //----------------- PAGINADORES PREVIOUS & NEXT -----------------
+btnFirst.addEventListener('click', () => {
+    offset = 0
+    fetchData() 
+    offset === 0 ? btnPrevious.setAttribute("disabled", true) : false
+    offset === 0 ? btnFirst.setAttribute("disabled", true) : false 
+});
 
 btnPrevious.addEventListener('click', () => {
     offset -= 20;
     fetchData()   
-    offset === 0 ? btnPrevious.setAttribute("disabled", true) : false    
+    offset === 0 ? btnPrevious.setAttribute("disabled", true) : false  
+    offset === 0 ? btnFirst.setAttribute("disabled", true) : false   
 });
 
 btnNext.addEventListener('click', () => {
     offset += 20;    
     fetchData()
     offset !== 0 ? btnPrevious.removeAttribute("disabled") : false    
+    offset !== 0 ? btnFirst.removeAttribute("disabled") : false    
 });
