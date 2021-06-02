@@ -25,3 +25,18 @@
 .american-font{
     font-family: "American Captain";
 }
+
+/* Card de personajes */
+
+.personaje-container{
+    overflow: hidden;
+    width: 100%;
+}
+
+.personaje-thumbnail{
+    transition: 0.2s;
+}
+
+.personaje-thumbnail:hover{
+    transform: scale(1.1);
+}
