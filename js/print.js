@@ -1,17 +1,15 @@
-//main.js encargado de pintar
 const root = document.getElementById('root');
-// const botton2 = document.getElementById('boton2');
+const rootPersonajes = document.getElementById('root-personajes');
+const select = document.getElementById('select-tipo');
+let eleccion 
+select.addEventListener('click', (e) => {
+    eleccion = e.target.value
+})
 
 const printData = arr => {
     let cajita = '';
     arr.forEach(comic => {
-        //destructuracion
-        const {title, thumbnail: {extension, path}} = comic;//de comic vamos a sacar el titulo y el thumbnail, lo guardamos en un objeto. el : es para entrar al contenido de otro objeto.
-        //path es la url y extension la extension 
-        //para las imagenes que no tienen img con un if se puede cambiar. hacer qoe ocupe el 100% del alto
-        //para el paginado cambiar el  limit  yel offset, en la proxima cambiarle el offset a 20 si empezo en 0.
-        //tiene que sumar 20 a offset y hacer una nueva peticion al fetch
-        //deberíamos ponerle una condición de que si es 0 no siga restando
+        const {title, thumbnail: {extension, path}} = comic;
 
         const pathNonFoundNowanted = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available";
         const pathNonFoundWanted = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny";
@@ -26,4 +24,32 @@ const printData = arr => {
             </div>`    
     });
     root.innerHTML = cajita;
+}
+
+//----------------- PINTAR PERSONAJES -----------------
+const printPersonajes = arr => {
+    let cajita = '';
+    arr.forEach(comic => {
+        const {id, name, thumbnail: {extension, path}} = comic;
+        console.log()
+
+        const pathNonFoundNowanted = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available";
+        const pathNonFoundWanted = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny";
+
+        cajita += 
+            `<div class="column is-2" onclick="obtenerid(${id})">
+                <div class="card">
+                    <figure class="image is-4by5 personaje-container">
+                        <a href="#">
+                            <img src="${path === pathNonFoundNowanted ? pathNonFoundWanted : path}.${extension}" alt="${name}" class="personaje-thumbnail">
+                        </a>
+                    </figure>
+
+                    <div class="card-content has-background-black has-text-light">
+                        <p class="american-font">${name}</p>
+                    </div>
+                </div>
+            </div>`    
+    });
+    rootPersonajes.innerHTML = cajita;
 }

@@ -27,20 +27,20 @@
         <nav class="navbar my-5" role="navigation" aria-label="main navigation">
           <div id="navbarBasicExample" class="navbar-menu is-align-items-center">
               <input class="input is-expanded is-half" type="text" placeholder="Normal input">
-            <div class="navbar-start">
-              <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link ">
-                  Tipo
-                </a>
-                <div class="navbar-dropdown">
-                  <a class="navbar-item">
-                    Comics
-                  </a>
-                  <a class="navbar-item">
-                    Personajes
-                  </a>
+              <div class="navbar-start">
+                <div class="navbar-item has-dropdown is-hoverable">
+                  <label class="navbar-label">
+                    Tipo
+                  </label>
+                  <select class="navbar-link" id="select-tipo">
+                    <option value="comics">
+                      Comics
+                    </option>
+                    <option value="personajes">
+                      Personajes
+                    </option>
+                  </select>
                 </div>
-              </div>
               <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
                   Orden
@@ -58,9 +58,9 @@
             <div class="navbar-end">
               <div class="navbar-item">
                 <div class="buttons">
-                  <a class="button is-light">
+                  <button class="button is-light" id="btn-search" onclick="funcionBuscar()">
                     Buscar
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
@@ -72,6 +72,7 @@
         </div>
         <div id="root" class="columns is-flex-wrap-wrap">          
         </div>
+        <div id="root-personajes" class="columns is-flex-wrap-wrap is-hidden"></div>
       </main>
     
       <section class="container my-6 has-text-centered">
