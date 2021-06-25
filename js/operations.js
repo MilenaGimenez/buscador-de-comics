@@ -8,6 +8,12 @@ const btnPrevious = document.getElementById('btn-previous');
 const btnNext = document.getElementById('btn-next');
 const btnLast = document.getElementById('btn-last');
 
+const searchInput = document.getElementById('search-input');
+
+/* const containerComics = document.getElementById('container-comics');
+const containerComicInfo = document.getElementById('container-comic-info');
+const containerCharacterInfo = document.getElementById('container-character-info'); */
+
 let offset = 0;
 let resultsCount = 0
 
@@ -15,7 +21,7 @@ const fetchData = () => {
     const url = `http://gateway.marvel.com/v1/public/comics?limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`
     fetch(url)
     .then(respuesta => respuesta.json())
-    .then(obj => printData(obj.data.results))
+    .then(obj => printData(obj.data.results, obj.data.total))
     .catch(error => console.error(error))
 };
 
@@ -25,7 +31,8 @@ const fetchTotalComics = () => {
     const url = 'https://gateway.marvel.com:443/v1/public/comics?apikey=e9522784cddc10be1873e2688faf099b'
     fetch(url)
     .then(respuesta => respuesta.json())
-    .then(obj => resultsCount = obj.data.total)
+    .then(obj => {resultsCount = obj.data.total
+    console.log(obj.data)})
     .catch(error => console.error(error))
 };
 
@@ -39,6 +46,79 @@ const fetchPersonajes = () => {
     .then(respuesta => respuesta.json())
     .then(datos => printPersonajes(datos.data.results))
     .catch(err => console.error(err))
+};
+
+//-----Fetch Id (nuevo codigo)
+const getId = id => {
+    const url = `https://gateway.marvel.com/v1/public/comics/${id}?ts=${timestamp}&apikey=${publica}&hash=${hash}`;
+    fetch(url)
+      .then(resp => resp.json())
+      .then(obj => printDetailComic(obj.data.results))
+      comicId = id
+      getCharacterComicId(comicId)
+      return comicId
+};
+
+//----Fetch id de personaje (nuevo codigo)
+const getCharacterComicId = (id) => {
+    let offsetComic = 0; 
+    const url = `https://gateway.marvel.com/v1/public/comics/${id}/characters?limit=5&offset=${offsetComic}&ts=${timestamp}&apikey=${publica}&hash=${hash}`
+    fetch(url)
+        .then(response => response.json())
+        .then(obj => {
+          const totalComics = obj.data.total;
+          //checkOffset(totalComics)
+          console.log(totalComics, offsetComic);
+          console.log(obj.data.results)
+          printCharactersComic(obj.data.results, comicCharactersResults, comicCharactersInfo)
+        //   printCharactersInfo(obj.data.results)
+        }
+          )
+          
+        .catch(err => console.error(err))
+  };
+
+
+//---Fetch info del personaje (codigo nuevo)
+// const prueba = () => {alert('funciono')}
+/* const getCharacterInfo = (id) => {
+    let offsetComic = 0; 
+    const url = `https://gateway.marvel.com/v1/public/comics/${id}/characters?limit=5&offset=${offsetComic}&ts=${timestamp}&apikey=${publica}&hash=${hash}`
+    fetch(url)
+        .then(response => response.json())
+        .then(obj => {
+        //   const totalComics = obj.data.total;
+          //checkOffset(totalComics)
+        //   console.log(totalComics, offsetComic);
+          console.log(obj.data.results)
+          //printCharactersComic(obj.data.results, comicCharactersResults, comicCharactersInfo)
+          printCharactersInfo(obj.data.results)
+        //   console.log(printCharactersInfo)
+        }
+          )
+          
+        .catch(err => console.error(err))
+  }; */
+
+let characterId = '';
+const getCharacterId = (id) => {
+    const url = `https://gateway.marvel.com/v1/public/characters/${id}?ts=${timestamp}&apikey=${publica}&hash=${hash}`
+    fetch(url)
+        .then(response => response.json())
+        .then(obj => printInfoCharater(obj.data.results))
+        .catch(err => console.error(err))
+    characterId = id
+    getComicsCharacterId(characterId)
+    return characterId
+};
+
+const getComicsCharacterId = (id) => {
+    const url = `https://gateway.marvel.com/v1/public/characters/${id}/comics?ts=${timestamp}&apikey=${publica}&hash=${hash}`
+    fetch(url)
+        .then(response => response.json())
+        .then(obj => {printComicsCharacter(obj.data.results, obj.data.total)
+        console.log(obj.data.total)})
+        .catch(err => console.error(err))
 };
 
 //----------------- PAGINADORES PREVIOUS & NEXT -----------------
@@ -126,13 +206,60 @@ btnNext.addEventListener('click', () => {
 obtenerUltimoComic() */
 
 //--------------FUNCION DE BUSCAR
+let busqueda = ''
+const escribirInput = () => {
+    searchInput.addEventListener('keyup', e => {
+        busqueda = e.target.value
+        console.log(busqueda)
+    })     
+}
+const prueba = (arr) => {
+    const url = `https://gateway.marvel.com/v1/public/titleStartsWith=${arr}&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`
+    fetch(url)
+    .then(respuesta => respuesta.json())
+    .then(obj => {resultsCount = obj.data.total
+    console.log(obj.data)
+    buscarNombre(obj.data.results)})
+    .catch(error => console.error(error))
+};
+
+
+
+const buscarNombre = (arr) => {
+    arr.forEach(comic => {
+        const {title, thumbnail: {extension, path}, id} = comic;
+
+        console.log(comic)
+
+        const pathNonFoundNowanted = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available";
+        const pathNonFoundWanted = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny";
+        /* cajita += 
+            `<div class="column is-one-fifth" onclick="getId(${id})">
+                <figure>
+                    <a href="#">
+                        <img src="${path === pathNonFoundNowanted ? pathNonFoundWanted : path}.${extension}" alt="${title}">
+                        <p class="american-font">${title}</p>
+                    </a>
+                </figure>
+            </div>`     */
+    });
+}
+
 const funcionBuscar = () => {
     if (eleccion === 'personajes') {
         fetchPersonajes()
         root.classList.add("is-hidden") 
         rootPersonajes.classList.remove("is-hidden")
+
+        containerCharacterInfo.classList.add("is-hidden") 
+        containerComicInfo.classList.add("is-hidden") 
     } else {
         rootPersonajes.classList.add("is-hidden") 
         root.classList.remove("is-hidden")
+        
     }
+    escribirInput()
+    prueba()
+    console.log(busqueda)
 }
+
