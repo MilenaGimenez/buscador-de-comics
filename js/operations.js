@@ -17,7 +17,7 @@ const fetchData = () => {
     .then(respuesta => respuesta.json())
     .then(obj => printData(obj.data.results))
     .catch(error => console.error(error))
-}
+};
 
 fetchData()
 
@@ -27,9 +27,19 @@ const fetchTotalComics = () => {
     .then(respuesta => respuesta.json())
     .then(obj => resultsCount = obj.data.total)
     .catch(error => console.error(error))
-}
+};
 
 fetchTotalComics()
+
+//----Fetch personajes
+
+const fetchPersonajes = () => {
+    const url = `https://gateway.marvel.com:443/v1/public/characters?apikey=${publica}&hash=${hash}`
+    fetch(url)
+    .then(respuesta => respuesta.json())
+    .then(datos => printPersonajes(datos.data.results))
+    .catch(err => console.error(err))
+};
 
 //----------------- PAGINADORES PREVIOUS & NEXT -----------------
 btnFirst.addEventListener('click', () => {
@@ -114,3 +124,15 @@ btnNext.addEventListener('click', () => {
 /* }
 
 obtenerUltimoComic() */
+
+//--------------FUNCION DE BUSCAR
+const funcionBuscar = () => {
+    if (eleccion === 'personajes') {
+        fetchPersonajes()
+        root.classList.add("is-hidden") 
+        rootPersonajes.classList.remove("is-hidden")
+    } else {
+        rootPersonajes.classList.add("is-hidden") 
+        root.classList.remove("is-hidden")
+    }
+}

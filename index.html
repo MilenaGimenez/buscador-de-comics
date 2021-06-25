@@ -23,55 +23,57 @@
     </section>
 
     <main class="container">
-      <h2 class="is-size-4 mt-5 american-font">Busqueda</h2>
-        <nav class="navbar my-5" role="navigation" aria-label="main navigation">
-          <div id="navbarBasicExample" class="navbar-menu is-align-items-center">
-              <input class="input is-expanded is-half" type="text" placeholder="Normal input">
-            <div class="navbar-start">
-              <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link ">
-                  Tipo
-                </a>
-                <div class="navbar-dropdown">
-                  <a class="navbar-item">
-                    Comics
-                  </a>
-                  <a class="navbar-item">
-                    Personajes
-                  </a>
+      <div class="">
+        <h2 class="is-size-4 mt-5 american-font">Busqueda</h2>
+          <nav class="navbar my-5" role="navigation" aria-label="main navigation">
+            <div id="navbarBasicExample" class="navbar-menu is-align-items-center">
+                <input class="input" type="text" placeholder="Normal input" id="search-input">
+              <div class="navbar-start">
+                <div class="navbar-item">
+                  <label class="navbar-label">
+                    Tipo
+                  </label>
+                  <select class="navbar-select" id="select-tipo">
+                    <option value="comics">
+                      Comics
+                    </option>
+                    <option value="personajes">
+                      Personajes
+                    </option>
+                  </select>
+                </div>
+                <div class="navbar-item mx-2">
+                  <label class="navbar-label">
+                    Orden
+                  </label>
+                  <select class="navbar-select">
+                    <option id="alfabetico" class="navbar-item" onclick="onclickOrder('a-z')" value="a-z">
+                      A-Z
+                    </option>
+                    <option class="navbar-item" onclick="onclickOrder('z-a')" value="z-a">
+                      Z-A
+                    </option>
+                  </select>
                 </div>
               </div>
-              <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">
-                  Orden
-                </a>
-                <div class="navbar-dropdown">
-                  <a class="navbar-item">
-                    A-Z
-                  </a>
-                  <a class="navbar-item">
-                    Z-A
-                  </a>
+              <div class="navbar-end">
+                <div class="navbar-item">
+                  <div class="buttons">
+                    <button class="button is-light" id="btn-search" onclick="funcionBuscar()">
+                      Buscar
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="navbar-end">
-              <div class="navbar-item">
-                <div class="buttons">
-                  <a class="button is-light">
-                    Buscar
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </nav>
+          </nav>
         <div class="mb-5">
           <h3 class="is-size-5 american-font">Resultados</h3>
           <span class="">0 Resultados</span>
         </div>
         <div id="root" class="columns is-flex-wrap-wrap">          
         </div>
+        <div id="root-personajes" class="columns is-flex-wrap-wrap is-hidden"></div>
       </main>
     
       <section class="container my-6 has-text-centered">
