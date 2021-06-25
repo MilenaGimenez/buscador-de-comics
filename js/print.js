@@ -1,6 +1,6 @@
 const root = document.getElementById('root');
 const rootPersonajes = document.getElementById('root-personajes');
-const select = document.getElementById('select-tipo');
+
 //Nuevas llamadas:
 const containerCharacterInfo = document.getElementById('container-character-info');
 const comicCharactersResults = document.getElementById('comic-characters-results');
@@ -16,10 +16,7 @@ const results = document.getElementById('results');
 
 let comicIdPrueba = 0;
 
-let eleccion 
-select.addEventListener('click', (e) => {
-    eleccion = e.target.value
-})
+
 
 const printData = (arr, num) => {
     comicCharactersResults.classList.add('is-hidden');

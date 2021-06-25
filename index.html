@@ -23,6 +23,7 @@
     </section>
 
     <main class="container">
+      
       <div class="">
         <h2 class="is-size-4 mt-5 american-font">Busqueda</h2>
           <nav class="navbar my-5" role="navigation" aria-label="main navigation">
@@ -37,7 +38,7 @@
                     <option value="comics">
                       Comics
                     </option>
-                    <option value="personajes">
+                    <option value="characters">
                       Personajes
                     </option>
                   </select>
@@ -46,22 +47,30 @@
                   <label class="navbar-label">
                     Orden
                   </label>
-                  <select class="navbar-select">
+                  <!-- <select class="navbar-select">
                     <option id="alfabetico" class="navbar-item" onclick="onclickOrder('a-z')" value="a-z">
                       A-Z
                     </option>
                     <option class="navbar-item" onclick="onclickOrder('z-a')" value="z-a">
                       Z-A
                     </option>
-                  </select>
+                  </select> -->
+                  <select id="search-order" class="navbar-select">
+                    <option class="navbar-item" value='title'>A/Z</option>
+                    <option class="navbar-item"value='-title'>Z/A</option>
+                    <option class="navbar-item" value='-focDate'>Más nuevos</option>
+                    <option class="navbar-item" value='focDate'>Más viejos</option>
+                </select>
+
                 </div>
               </div>
               <div class="navbar-end">
                 <div class="navbar-item">
                   <div class="buttons">
-                    <button class="button is-light" id="btn-search" onclick="funcionBuscar()">
+                   <!--  <button class="button is-light" id="btn-search" onclick="funcionBuscar()">
                       Buscar
-                    </button>
+                    </button> -->
+                    <button id="search-btn" class="button is-light">BUSCAR</button>
                   </div>
                 </div>
               </div>

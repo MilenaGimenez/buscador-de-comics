@@ -8,7 +8,7 @@ const btnPrevious = document.getElementById('btn-previous');
 const btnNext = document.getElementById('btn-next');
 const btnLast = document.getElementById('btn-last');
 
-const searchInput = document.getElementById('search-input');
+
 
 /* const containerComics = document.getElementById('container-comics');
 const containerComicInfo = document.getElementById('container-comic-info');
@@ -17,8 +17,10 @@ const containerCharacterInfo = document.getElementById('container-character-info
 let offset = 0;
 let resultsCount = 0
 
-const fetchData = () => {
-    const url = `http://gateway.marvel.com/v1/public/comics?limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`
+url = `https://gateway.marvel.com/v1/public/comics?&orderBy=title&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`
+
+const fetchData = (url) => {
+    /* const url = `http://gateway.marvel.com/v1/public/comics?limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}` */
     fetch(url)
     .then(respuesta => respuesta.json())
     .then(obj => printData(obj.data.results, obj.data.total))
@@ -49,7 +51,8 @@ const fetchPersonajes = () => {
 };
 
 //-----Fetch Id (nuevo codigo)
-const getId = id => {
+let comicId = '';
+const getId = id => {    
     const url = `https://gateway.marvel.com/v1/public/comics/${id}?ts=${timestamp}&apikey=${publica}&hash=${hash}`;
     fetch(url)
       .then(resp => resp.json())
@@ -76,6 +79,10 @@ const getCharacterComicId = (id) => {
           )
           
         .catch(err => console.error(err))
+        //new
+        comicId = id
+        getCharacterComicId(comicId)
+        return comicId
   };
 
 
@@ -206,6 +213,14 @@ btnNext.addEventListener('click', () => {
 obtenerUltimoComic() */
 
 //--------------FUNCION DE BUSCAR
+/* const selectType = document.getElementById('select-tipo');
+
+let eleccion 
+selectType.addEventListener('click', (e) => {
+    eleccion = e.target.value
+    console.log(eleccion)
+})
+
 let busqueda = ''
 const escribirInput = () => {
     searchInput.addEventListener('keyup', e => {
@@ -213,8 +228,11 @@ const escribirInput = () => {
         console.log(busqueda)
     })     
 }
-const prueba = (arr) => {
-    const url = `https://gateway.marvel.com/v1/public/titleStartsWith=${arr}&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`
+const prueba = () => {
+    const input = searchInput.value
+    const type = searchType.value
+    const order = searchOrder.value
+    const url = `https://gateway.marvel.com/v1/public/${type}?titleStartsWith=${input}&orderBy=${order}&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`
     fetch(url)
     .then(respuesta => respuesta.json())
     .then(obj => {resultsCount = obj.data.total
@@ -233,15 +251,7 @@ const buscarNombre = (arr) => {
 
         const pathNonFoundNowanted = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available";
         const pathNonFoundWanted = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny";
-        /* cajita += 
-            `<div class="column is-one-fifth" onclick="getId(${id})">
-                <figure>
-                    <a href="#">
-                        <img src="${path === pathNonFoundNowanted ? pathNonFoundWanted : path}.${extension}" alt="${title}">
-                        <p class="american-font">${title}</p>
-                    </a>
-                </figure>
-            </div>`     */
+        
     });
 }
 
@@ -261,5 +271,75 @@ const funcionBuscar = () => {
     escribirInput()
     prueba()
     console.log(busqueda)
+} */
+
+
+//-----------------------funcion de buscar (new code)
+const searchInput = document.getElementById('search-input');
+const searchType = document.getElementById('select-tipo');
+const searchOrder = document.getElementById('search-order');
+const searchBtn = document.getElementById('search-btn');
+
+
+//Search-Nav
+
+const fetchCharacters = (url) => {
+    fetch(url)
+        .then(response => response.json())
+        .then(obj => {
+            printCharactersComic(obj.data.results, '', root)
+            /* total = obj.data.total
+            totalResult.innerHTML = total */
+            console.log(obj.data.results)
+        })
+        .catch(err => console.error(err))
+};
+
+const searchURLUpdate = () => {
+    const input = searchInput.value
+    const type = searchType.value
+    const order = searchOrder.value
+    let url2 = ''
+    if (type === 'comics' && input != '') {
+        url2 = `https://gateway.marvel.com/v1/public/${type}?titleStartsWith=${input}&orderBy=${order}&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`
+        fetchData(url2)
+    }
+    if (type === 'comics' && input === '') {
+        url = `https://gateway.marvel.com/v1/public/comics?&orderBy=${order}&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`
+        fetchData(url)
+    }
+    if (type === 'characters' && input != '') {
+        const url3 = `https://gateway.marvel.com/v1/public/characters?nameStartsWith=${input}&orderBy=${order}&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`
+        fetchCharacters(url3)
+    }
+    if (type === 'characters' && input === '') {
+        const url4 = `https://gateway.marvel.com/v1/public/characters?&orderBy=${order}&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`
+        fetchCharacters(url4)
+    };
+
 }
 
+searchBtn.addEventListener('click', searchURLUpdate);
+
+searchType.addEventListener('change', () => {
+    const type = searchType.value
+    if (type === 'comics') {
+        searchOrder.innerHTML = `
+        <option value='title'>A/Z</option>
+        <option value='-title'>Z/A</option>
+        <option value='-focDate'>Más nuevos</option>
+        <option value='focDate'>Más viejos</option> 
+        `
+    }
+    if (type === 'characters') {
+        searchOrder.innerHTML = `
+        <option value='name'>A/Z</option>
+        <option value='-name'>Z/A</option>
+        `
+    }
+})
+
+window.onload = () => {
+    fetchData(url);
+    //disabledBtn();
+}
