@@ -14,3 +14,17 @@
 - ### ¡Conocé más acerca de los cómics y los personajes que participen en él!
 
 ***
+
+### 💻 Tecnologías utilizadas:
+<br>
+<img alt="HTML" src="https://img.shields.io/badge/-HTML-orange"><img alt="HTML" src="https://img.shields.io/badge/-CSS-blue"><img alt="HTML" src="https://img.shields.io/badge/-Javascript-yellow">
+
+***
+
+### ➡ No necesitas instalar dependencias
+
+
+***
+<br>
+
+*Proyecto realizado para el módulo 6 del cursado de Frontend de Ada ITW*
