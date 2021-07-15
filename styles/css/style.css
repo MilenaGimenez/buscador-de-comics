@@ -98,6 +98,10 @@
      display: flex;
      align-items: center;
    }
+
+   .label-select{
+     width: 11.5rem;
+   }
 }
 
 
@@ -116,10 +120,12 @@
   
 }
 
+
+
 @media (max-width: 415px) {
   
    .navbar-start{
-     
+    
      display: flex;
      width: 100%;     
    }
@@ -131,16 +137,23 @@
    }
 
    .navbar-select{
-     width: 5rem;
+     width: 5.5rem;
      font-size: 0.9rem;
      padding: 0.4rem;
    }
+
+/*    .buttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   } */
 
    .buttons button{
       border: 1px solid red;
       width: 100%;
       font-size: 0.9rem;
       padding: 0.4rem;
+      
    }
 
    .navbar-item{
@@ -161,4 +174,8 @@
     justify-content: center;
     margin-top: 10px;
    }
+}
+
+.patata{
+  margin-right: 0px
 }
