@@ -287,3 +287,15 @@ const printComicsCharacter = (arr, num) => {
 
     characterInfo.innerHTML = box
 };
+
+function myFunction(x) {
+    if (x.matches) { // If media query matches
+      root.classList.remove('is-mobile')
+    } else {
+        root.classList.add('is-mobile')
+    }
+  }
+  
+  var x = window.matchMedia("(max-width: 550px)")
+  myFunction(x) // Call listener function at run time
+  x.addListener(myFunction) // Attach listener function on state changes
