@@ -80,9 +80,9 @@ const getCharacterComicId = (id) => {
           
         .catch(err => console.error(err))
         //new
-        comicId = id
+        /* comicId = id
         getCharacterComicId(comicId)
-        return comicId
+        return comicId */
   };
 
 
