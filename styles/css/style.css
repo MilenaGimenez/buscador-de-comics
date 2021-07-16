@@ -68,9 +68,7 @@
 }
  */
 
- .busqueda{
-   /* background-color: red; */
- }
+ 
 
  @media (max-width: 1023px) {
   .busqueda {
@@ -160,13 +158,7 @@
      padding: 0;
    }
 
-   h1{
-     /* border: 1px solid blue;
-     font-size: 1rem!important;
-     color: gray; */
-   }
-
-   .marvel-logo{
+    .marvel-logo{
     width: 60px;
     height: 40px;
     display: flex;
@@ -178,4 +170,8 @@
 
 .patata{
   margin-right: 0px
+}
+
+.panapa{
+  padding-right: 0px;
 }
