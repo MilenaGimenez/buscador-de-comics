@@ -18,6 +18,7 @@ let comicIdPrueba = 0;
 
 
 
+
 const printData = (arr, num) => {
     comicCharactersResults.classList.add('is-hidden');
     comicCharactersInfo.classList.add('is-hidden');
@@ -87,6 +88,8 @@ const printDetailComic = arr => {
     containerCharacterInfo.classList.add('is-hidden');
 
     comicCharactersResults.classList.remove('is-hidden');
+    const prueba = document.getElementById('root').firstChild
+    console.log(prueba);
 
     results.classList.add('is-hidden');
     //containerComicInfo.classList.add('is-hidden');
@@ -104,13 +107,13 @@ const printDetailComic = arr => {
         const pathNonFoundWanted = "https://i.pinimg.com/564x/6d/af/a0/6dafa08555ee450d9d61061c7bc23cb5";
 
       cajita += `
-      <div class="columns">
+      <div class="columns p-5 patata">
             <div class="column is-one-quarter">
                 <figure class="img-detalle">
                 <img src="${path === pathNonFoundNowanted ? pathNonFoundWanted : path}.${extension}" alt="${title}" class="img-comic-info">
                 </figure>
             </div>
-            <div class="column is-size-5 px-6 py-4 label-select">
+            <div class="column is-size-6 px-6 py-4">
             <h3 class="title title-color">${title}</h3>
             <h4 class="has-text-weight-bold m-0 mb-2">Publicado:</h4>
             <p>${releaseDate}</p>
@@ -124,7 +127,8 @@ const printDetailComic = arr => {
             
         </div> `
     })
-    root.innerHTML = cajita
+    root.innerHTML = cajita   
+    myFunction2(x)
   }
 
 //----------------Print de los personajes (nuevo codigo)
@@ -203,13 +207,13 @@ const printCharactersComic = (arr, containerText, container) => {
         const pathNonFoundNowanted = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available";
         const pathNonFoundWanted = "https://i.pinimg.com/564x/6d/af/a0/6dafa08555ee450d9d61061c7bc23cb5";
         box += `
-        <div class="columns">
+        <div class="columns p-5 patata">
             <div class="column is-one-quarter">
                 <figure class="img-detalle">
                 <img src="${path === pathNonFoundNowanted ? pathNonFoundWanted : path}.${extension}" alt="${name}" class="img-comic-info">
                 </figure>
             </div>
-            <div class="column is-size-5 px-6 py-4 label-select">
+            <div class="column is-size-6 px-6 py-4">
                 <h3 class="title title-color">${name}</h3>
                 <h4 class="has-text-weight-bold m-0 mt-3 mb-2">Descripción:</h4>
                 <p class="has-text-justified pr-6">${description ? description : 'Sin información'}</p>
@@ -262,7 +266,7 @@ const printComicsCharacter = (arr, num) => {
        
         box += `
         
-            <div class="column is-one-fifth" onclick="getId(${id})">
+            <div class="column is-full-mobile is-one-third-tablet is-one-fifth-desktop panapa" onclick="getId(${id})">
                 <figure>
                     <a>
                         <img class="height_img" src="${path === pathNonFoundNowanted ? pathNonFoundWanted : path}.${extension}" alt="${title}">
@@ -287,3 +291,27 @@ const printComicsCharacter = (arr, num) => {
 
     characterInfo.innerHTML = box
 };
+
+function myFunction(x) {
+    if (x.matches) { // If media query matches
+      root.classList.remove('is-mobile')
+    } else {
+        root.classList.add('is-mobile')
+    }
+  }
+  
+  var x = window.matchMedia("(max-width: 550px)")
+  myFunction(x) // Call listener function at run time
+  x.addListener(myFunction) // Attach listener function on state changes
+
+function myFunction2(x) {
+    if (x.matches) { // If media query matches
+      root.classList.remove('is-mobile')
+    } else {
+        root.classList.add('is-mobile')
+    }
+  }
+  
+  var x = window.matchMedia("(max-width: 550px)")
+   // Call listener function at run time
+  x.addListener(myFunction2) // Attach listener function on state changes

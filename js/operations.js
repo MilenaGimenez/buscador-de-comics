@@ -80,9 +80,9 @@ const getCharacterComicId = (id) => {
           
         .catch(err => console.error(err))
         //new
-        comicId = id
+        /* comicId = id
         getCharacterComicId(comicId)
-        return comicId
+        return comicId */
   };
 
 
@@ -272,6 +272,23 @@ const funcionBuscar = () => {
     prueba()
     console.log(busqueda)
 } */
+//----------------------------btn subir arriba
+const btnUpContainer = document.querySelector('.go-top-container');
+
+window.onscroll = function(){
+    if(document.documentElement.scrollTop > 100){
+        btnUpContainer.classList.add('show')
+    } else {
+        btnUpContainer.classList.remove('show')
+    }
+}
+
+btnUpContainer.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    })
+})
 
 
 //-----------------------funcion de buscar (new code)
