@@ -16,7 +16,21 @@ const results = document.getElementById('results');
 
 let comicIdPrueba = 0;
 
+/* Paginador pagina de inicio */
 
+const containerPaginador = document.getElementById('container-pagination');
+// const crearPaginador = () => {
+//     let box
+//     box = `
+//     <button id="btn-first" class="first-page pagination-next" disabled><i class="fas fa-angle-double-left"></i></button>
+
+//     <button id='btn-previous' class="pagination-previous" disabled><i class="fas fa-angle-left"></i></button>
+
+//     <button id="btn-next" class="pagination-next"><i class="fas fa-angle-right"></i></button>
+
+//     <button id="btn-last" class="last-page pagination-next"><i class="fas fa-angle-double-right"></i></button>
+//     `
+// }
 
 
 const printData = (arr, num) => {
@@ -47,6 +61,32 @@ const printData = (arr, num) => {
             </div>`    
     });
     root.innerHTML = cajita;
+
+    containerPaginador.innerHTML = `
+    <button id="first-page-btn" class="first-page pagination-next" ${
+      offset === 0 && "disabled"
+    } onclick="firstPage(${() => fetchData(input, order)})">
+    <i class="fas fa-angle-double-left"></i>
+    </button>
+
+    <button id="previews-page-btn" class="pagination-previous" ${
+      offset === 0 && "disabled"
+    } onclick="previewsPage(${() => fetchData(input, order)})">
+    <i class="fas fa-angle-left"></i>
+    </button>
+    
+    <button id="next-page-btn" class="pagination-next" ${
+      offset === resultsCount - (resultsCount % 20) && "disabled"
+    } onclick="nextPage(${() => fetchData(input, order)})">
+    <i class="fas fa-angle-right"></i>
+    </button>
+
+    <button id="last-page-btn" class="last-page pagination-next" ${
+      offset === resultsCount - (resultsCount % 20) && "disabled"
+    } onclick="lastPage(${() => fetchData(input, order)})">
+    <i class="fas fa-angle-double-right"></i>
+    </button>
+`;
 }
 
 //----------------- PINTAR PERSONAJES -----------------
@@ -291,6 +331,42 @@ const printComicsCharacter = (arr, num) => {
 
     characterInfo.innerHTML = box
 };
+
+// // Pagination
+
+const firstPage = (func) => {
+    offset = 0;
+    func();
+    pageNumber = 1;
+    return offset;
+  };
+  
+  const previewsPage = (func) => {
+    offset -= 20;
+    func();
+    pageNumber = Math.floor(offset / 20) + 1;
+    return offset;
+  };
+  
+  const nextPage = (func) => {
+    offset += 20;
+    func();
+    pageNumber = Math.floor(offset / 20) + 1;
+    return offset;
+  };
+  
+  const lastPage = (func) => {
+    const isExact = resultsCount % 20 === 0;
+    const pages = Math.floor(resultsCount / 20);
+    offset = (isExact ? pages - 1 : pages) * 20;
+    offset = resultsCount - (resultsCount % 20);
+    func();
+    pageNumber = Math.floor(offset / 20) + 1;
+    return offset;
+  };
+
+
+/* Responsive */
 
 function myFunction(x) {
     if (x.matches) { // If media query matches
