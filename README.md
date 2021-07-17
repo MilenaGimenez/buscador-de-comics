@@ -21,7 +21,12 @@
 
 ***
 
-### ➡ No necesitas instalar dependencias
+### ➡ Dependencias del proyecto:
+### <a href="https://bulma.io/documentation/"><img alt="HTML" src="https://iconape.com/wp-content/files/aj/349519/svg/bulma-seeklogo.com.svg" width="14x14"> Bulma</a> <br>
+
+### <a href="https://github.com/topics/md5-hash">🔒 MD5</a>
+
+### <a href="https://developer.marvel.com/"><img alt="HTML" src="assets/favicon.png" width="14x14"> Marvel</a>
 
 
 ***

@@ -8,6 +8,11 @@ const btnPrevious = document.getElementById('btn-previous');
 const btnNext = document.getElementById('btn-next');
 const btnLast = document.getElementById('btn-last');
 
+const searchInput = document.getElementById('search-input');
+const searchType = document.getElementById('select-tipo');
+const searchOrder = document.getElementById('search-order');
+const searchBtn = document.getElementById('search-btn');
+
 
 
 /* const containerComics = document.getElementById('container-comics');
@@ -16,18 +21,30 @@ const containerCharacterInfo = document.getElementById('container-character-info
 
 let offset = 0;
 let resultsCount = 0
+let input = searchInput.value;
+let order = searchOrder.value;
+let type = searchType.value;
 
-url = `https://gateway.marvel.com/v1/public/comics?&orderBy=title&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`
+//url = `https://gateway.marvel.com/v1/public/comics?&orderBy=title&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`
 
-const fetchData = (url) => {
-    /* const url = `http://gateway.marvel.com/v1/public/comics?limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}` */
+const fetchData = (input, order) => {
+    //const urlPrueba = `https://gateway.marvel.com/v1/public/comics?&orderBy=title&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`
+    let url;
+    if (input !== "") {
+        url = `https://gateway.marvel.com/v1/public/comics?titleStartsWith=${input}&orderBy=${order}&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`;
+      } else {
+        url = `https://gateway.marvel.com/v1/public/comics?&orderBy=${order}&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`;
+      }
     fetch(url)
     .then(respuesta => respuesta.json())
     .then(obj => printData(obj.data.results, obj.data.total))
     .catch(error => console.error(error))
+    console.log(offset);
+    console.log(url);
+    console.log(`https://gateway.marvel.com/v1/public/comics?&orderBy=title&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`);
 };
 
-fetchData()
+//fetchData()
 
 const fetchTotalComics = () => {
     const url = 'https://gateway.marvel.com:443/v1/public/comics?apikey=e9522784cddc10be1873e2688faf099b'
@@ -42,8 +59,15 @@ fetchTotalComics()
 
 //----Fetch personajes
 
-const fetchPersonajes = () => {
-    const url = `https://gateway.marvel.com:443/v1/public/characters?apikey=${publica}&hash=${hash}`
+const fetchPersonajes = (input, order) => {
+    // const url = `https://gateway.marvel.com:443/v1/public/characters?apikey=${publica}&hash=${hash}`
+    resultsCount = undefined;
+    let url;
+    if (input !== "") {
+        url = `https://gateway.marvel.com/v1/public/characters?nameStartsWith=${input}&orderBy=${order}&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`;
+    } else {
+        url = `https://gateway.marvel.com/v1/public/characters?&orderBy=${order}&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`;
+    }
     fetch(url)
     .then(respuesta => respuesta.json())
     .then(datos => printPersonajes(datos.data.results))
@@ -86,33 +110,17 @@ const getCharacterComicId = (id) => {
   };
 
 
-//---Fetch info del personaje (codigo nuevo)
-// const prueba = () => {alert('funciono')}
-/* const getCharacterInfo = (id) => {
-    let offsetComic = 0; 
-    const url = `https://gateway.marvel.com/v1/public/comics/${id}/characters?limit=5&offset=${offsetComic}&ts=${timestamp}&apikey=${publica}&hash=${hash}`
-    fetch(url)
-        .then(response => response.json())
-        .then(obj => {
-        //   const totalComics = obj.data.total;
-          //checkOffset(totalComics)
-        //   console.log(totalComics, offsetComic);
-          console.log(obj.data.results)
-          //printCharactersComic(obj.data.results, comicCharactersResults, comicCharactersInfo)
-          printCharactersInfo(obj.data.results)
-        //   console.log(printCharactersInfo)
-        }
-          )
-          
-        .catch(err => console.error(err))
-  }; */
 
 let characterId = '';
 const getCharacterId = (id) => {
-    const url = `https://gateway.marvel.com/v1/public/characters/${id}?ts=${timestamp}&apikey=${publica}&hash=${hash}`
+    resultsCount = undefined;
+    const url = `https://gateway.marvel.com/v1/public/characters/${id}?&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`
     fetch(url)
         .then(response => response.json())
-        .then(obj => printInfoCharater(obj.data.results))
+        .then((obj) => {
+            printInfoCharater(obj.data.results)
+            resultsCount = obj.data.results[0].comics.available;
+        })
         .catch(err => console.error(err))
     characterId = id
     getComicsCharacterId(characterId)
@@ -120,7 +128,7 @@ const getCharacterId = (id) => {
 };
 
 const getComicsCharacterId = (id) => {
-    const url = `https://gateway.marvel.com/v1/public/characters/${id}/comics?ts=${timestamp}&apikey=${publica}&hash=${hash}`
+    const url = `https://gateway.marvel.com/v1/public/characters/${id}/comics?&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`;
     fetch(url)
         .then(response => response.json())
         .then(obj => {printComicsCharacter(obj.data.results, obj.data.total)
@@ -128,150 +136,7 @@ const getComicsCharacterId = (id) => {
         .catch(err => console.error(err))
 };
 
-//----------------- PAGINADORES PREVIOUS & NEXT -----------------
-btnFirst.addEventListener('click', () => {
-    offset = 0
-    fetchData() 
-    offset === 0 ? btnPrevious.setAttribute("disabled", true) : false
-    offset === 0 ? btnFirst.setAttribute("disabled", true) : false 
-    console.log(`btnFirst: el offset es de ${offset}`);
-});
 
-//boton del problema
-btnPrevious.addEventListener('click', () => {
-    console.log('offset actual', offset)
-    fetchData()   
-    fetchTotalComics()
-    //obtenerUltimoComic()
-    
-    offset -= 20;
-    offset === 0 ? btnPrevious.setAttribute("disabled", true) : false  
-    offset === 0 ? btnFirst.setAttribute("disabled", true) : false   
-
-    //se desbloquean los dos ultimos
-    offset !== 0 ? btnNext.removeAttribute("disabled") : false    
-    offset !== 0 ? btnLast.removeAttribute("disabled") : false  
-
-    console.log(`btnPrevious: el offset es de ${offset}`);
-});
-
-btnNext.addEventListener('click', () => {
-    offset += 20;    
-    fetchData()
-    offset !== 0 ? btnPrevious.removeAttribute("disabled") : false    
-    offset !== 0 ? btnFirst.removeAttribute("disabled") : false   
-    
-    console.log(`btnNext: el offset es de ${offset}`);
-});
-
-/* const obtenerUltimoComic = () => {
-    btnLast.addEventListener('click', () => {
-        console.log(`soy el offset antes de todo: ${offset}`);
-        let cuenta = resultsCount - 20;
-        //console.log('suma offset y cuenta', offset += cuenta);
-        offset += cuenta
-        console.log(`soy el offset: ${offset}`);
-        console.log('soy cuenta', cuenta);
-        
-        //cuando se apreta el ultimo se bloquean los dos ultimos
-        offset = resultsCount - 20 ? btnNext.setAttribute("disabled", true) : false   
-        offset = resultsCount - 20 ? btnLast.setAttribute("disabled", true) : false 
-
-        //cuando se apreta el ultimo se desbloquean los dos primeros
-        offset = resultsCount - 20 ? btnPrevious.removeAttribute("disabled") : false 
-        offset = resultsCount - 20 ? btnFirst.removeAttribute("disabled") : false
-
-        //console.log(`btnLast: el offset es de ${offset}`);
-
-        console.log(`btnLast: el resultsCount es de ${resultsCount}`);
-        console.log(`la cuenta da ${cuenta}`);
-        console.log(typeof cuenta);
-
-        fetchData() 
-        fetchTotalComics()
-    });  
-} */
-
-/* const obtenerUltimoComic = () => { */
-    btnLast.addEventListener('click', () => {
-        console.log('offset antes apretar last', offset)
-        offset += resultsCount - 20;
-        fetchData() 
-
-        //cuando se apreta el ultimo se bloquean los dos ultimos
-        offset = resultsCount - 20 ? btnNext.setAttribute("disabled", true) : false   
-        offset = resultsCount - 20 ? btnLast.setAttribute("disabled", true) : false 
-
-        //cuando se apreta el ultimo se desbloquean los dos primeros
-        offset = resultsCount - 20 ? btnPrevious.removeAttribute("disabled") : false 
-        offset = resultsCount - 20 ? btnFirst.removeAttribute("disabled") : false
-
-        console.log('offset tras apretar last', offset)
-    });  
-/* }
-
-obtenerUltimoComic() */
-
-//--------------FUNCION DE BUSCAR
-/* const selectType = document.getElementById('select-tipo');
-
-let eleccion 
-selectType.addEventListener('click', (e) => {
-    eleccion = e.target.value
-    console.log(eleccion)
-})
-
-let busqueda = ''
-const escribirInput = () => {
-    searchInput.addEventListener('keyup', e => {
-        busqueda = e.target.value
-        console.log(busqueda)
-    })     
-}
-const prueba = () => {
-    const input = searchInput.value
-    const type = searchType.value
-    const order = searchOrder.value
-    const url = `https://gateway.marvel.com/v1/public/${type}?titleStartsWith=${input}&orderBy=${order}&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`
-    fetch(url)
-    .then(respuesta => respuesta.json())
-    .then(obj => {resultsCount = obj.data.total
-    console.log(obj.data)
-    buscarNombre(obj.data.results)})
-    .catch(error => console.error(error))
-};
-
-
-
-const buscarNombre = (arr) => {
-    arr.forEach(comic => {
-        const {title, thumbnail: {extension, path}, id} = comic;
-
-        console.log(comic)
-
-        const pathNonFoundNowanted = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available";
-        const pathNonFoundWanted = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny";
-        
-    });
-}
-
-const funcionBuscar = () => {
-    if (eleccion === 'personajes') {
-        fetchPersonajes()
-        root.classList.add("is-hidden") 
-        rootPersonajes.classList.remove("is-hidden")
-
-        containerCharacterInfo.classList.add("is-hidden") 
-        containerComicInfo.classList.add("is-hidden") 
-    } else {
-        rootPersonajes.classList.add("is-hidden") 
-        root.classList.remove("is-hidden")
-        
-    }
-    escribirInput()
-    prueba()
-    console.log(busqueda)
-} */
 //----------------------------btn subir arriba
 const btnUpContainer = document.querySelector('.go-top-container');
 
@@ -292,15 +157,18 @@ btnUpContainer.addEventListener('click', () => {
 
 
 //-----------------------funcion de buscar (new code)
-const searchInput = document.getElementById('search-input');
-const searchType = document.getElementById('select-tipo');
-const searchOrder = document.getElementById('search-order');
-const searchBtn = document.getElementById('search-btn');
+
 
 
 //Search-Nav
 
-const fetchCharacters = (url) => {
+const fetchCharacters = (input, order) => {
+    let url;
+    if (input !== "") {
+        url = `https://gateway.marvel.com/v1/public/characters?nameStartsWith=${input}&orderBy=${order}&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`;
+    } else {
+        url = `https://gateway.marvel.com/v1/public/characters?&orderBy=${order}&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`;
+    }
     fetch(url)
         .then(response => response.json())
         .then(obj => {
@@ -313,10 +181,8 @@ const fetchCharacters = (url) => {
 };
 
 const searchURLUpdate = () => {
-    const input = searchInput.value
-    const type = searchType.value
-    const order = searchOrder.value
-    let url2 = ''
+    
+    /* let url2 = ''
     if (type === 'comics' && input != '') {
         url2 = `https://gateway.marvel.com/v1/public/${type}?titleStartsWith=${input}&orderBy=${order}&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`
         fetchData(url2)
@@ -332,14 +198,31 @@ const searchURLUpdate = () => {
     if (type === 'characters' && input === '') {
         const url4 = `https://gateway.marvel.com/v1/public/characters?&orderBy=${order}&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`
         fetchCharacters(url4)
-    };
+    }; */
+    // total = undefined;
+    offset = 0;
+    input = searchInput.value;
+    type = searchType.value;
+    order = searchOrder.value;
+  
+    if (type === "comics") {
+      fetchData(input, order);
+    }
+  
+    if (type === "characters") {
+      fetchCharacters(input, order);
+    }
 
 }
 
-searchBtn.addEventListener('click', searchURLUpdate);
+searchBtn.addEventListener('click', () => {
+    searchURLUpdate()
+    containerCharacterInfo.classList.add('is-hidden')
+    console.log(input = '');
+});
 
 searchType.addEventListener('change', () => {
-    const type = searchType.value
+    type = searchType.value
     if (type === 'comics') {
         searchOrder.innerHTML = `
         <option value='title'>A/Z</option>
@@ -356,7 +239,41 @@ searchType.addEventListener('change', () => {
     }
 })
 
+// // Pagination
+
+const firstPage = (func) => {
+    offset = 0;
+    func();
+    pageNumber = 1;
+    return offset;
+  };
+  
+  const previewsPage = (func) => {
+    offset -= 20;
+    func();
+    pageNumber = Math.floor(offset / 20) + 1;
+    return offset;
+  };
+  
+  const nextPage = (func) => {
+    offset += 20;
+    func();
+    pageNumber = Math.floor(offset / 20) + 1;
+    return offset;
+  };
+  
+  const lastPage = (func) => {
+    const isExact = resultsCount % 20 === 0;
+    const pages = Math.floor(resultsCount / 20);
+    offset = (isExact ? pages - 1 : pages) * 20;
+    offset = resultsCount - (resultsCount % 20);
+    func();
+    pageNumber = Math.floor(offset / 20) + 1;
+    return offset;
+  };
+
 window.onload = () => {
-    fetchData(url);
+    fetchData(input, order);
+    //fetchData(url);
     //disabledBtn();
 }
