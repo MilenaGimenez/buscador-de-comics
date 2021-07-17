@@ -139,13 +139,17 @@ const printDetailComic = arr => {
     arr.forEach(comic => {
       const {thumbnail: {extension, path}, title, description, dates, creators, id } = comic;
       const releaseDate = new Intl.DateTimeFormat('es-AR').format(new Date(dates?.find(el => el.type === 'onsaleDate').date))
-      const writer = creators?.items?.filter(el => el.role === 'writer')
+    //   const writer = creators?.items?.filter(el => el.role === 'writer')
+        const writer = creators?.items
+        ?.filter((el) => el.role === "writer")
+        .map((creator) => creator.name)
+        .join(", ");
 
       comicIdPrueba = id
         console.log(comicIdPrueba)
         
       const pathNonFoundNowanted = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available";
-        const pathNonFoundWanted = "https://i.pinimg.com/564x/6d/af/a0/6dafa08555ee450d9d61061c7bc23cb5";
+        const pathNonFoundWanted = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny";
 
       cajita += `
       <div class="columns p-5 patata">
@@ -159,7 +163,7 @@ const printDetailComic = arr => {
             <h4 class="has-text-weight-bold m-0 mb-2">Publicado:</h4>
             <p>${releaseDate}</p>
             <h4 class="has-text-weight-bold m-0 mt-3 mb-2">Guionistas:</h4>
-            <p>${writer ? writer[0]?.name : 'Sin informacion'}</p>
+            <p>${writer ? writer : 'Sin informacion'}</p>
             <h4 class="has-text-weight-bold m-0 mt-3 mb-2">Descripción:</h4>
             <p class="has-text-justified pr-5">${description ? description : 'Sin información'}</p>    
                    
@@ -211,7 +215,7 @@ const printCharactersComic = (arr, containerText, container) => {
     arr.forEach(character => {
         const {name, thumbnail: {extension, path}, id} = character;
         const pathNonFoundNowanted = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available";
-        const pathNonFoundWanted = "https://i.pinimg.com/564x/6d/af/a0/6dafa08555ee450d9d61061c7bc23cb5";
+        const pathNonFoundWanted = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny";
        
         containerText.innerHTML = `
                 <h3 class="title mb-2 title-color">Personajes</h3>
@@ -275,7 +279,7 @@ const printCharactersComic = (arr, containerText, container) => {
     arr.forEach(character => {
         const {name, thumbnail: {extension, path}, description} = character;
         const pathNonFoundNowanted = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available";
-        const pathNonFoundWanted = "https://i.pinimg.com/564x/6d/af/a0/6dafa08555ee450d9d61061c7bc23cb5";
+        const pathNonFoundWanted = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny";
         
         box += `
         <div class="columns p-5 patata">
@@ -332,7 +336,7 @@ const printComicsCharacter = (arr, num) => {
     arr.forEach(comic => {
         const {title, thumbnail: {extension, path}, id} = comic;
         const pathNonFoundNowanted = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available";
-        const pathNonFoundWanted = "https://i.pinimg.com/564x/6d/af/a0/6dafa08555ee450d9d61061c7bc23cb5";
+        const pathNonFoundWanted = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny";
        
        
         box += `
