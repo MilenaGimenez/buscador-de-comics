@@ -35,7 +35,7 @@ const printData = (arr, num) => {
         const pathNonFoundNowanted = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available";
         const pathNonFoundWanted = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny";
         cajita += 
-            `<div class="column is-one-fifth" onclick="getId(${id})">
+            `<div class="column is-one-fifth" onclick="fetchId(${id})">
                 <figure>
                     <a href="#">
                         <img src="${path === pathNonFoundNowanted ? pathNonFoundWanted : path}.${extension}" alt="${title}">
@@ -49,25 +49,25 @@ const printData = (arr, num) => {
     containerPaginador.innerHTML = `
     <button id="first-page-btn" class="first-page pagination-next" ${
       offset === 0 && "disabled"
-    } onclick="firstPage(${() => fetchData(input, order)})">
+    } onclick="primerPagina(${() => fetchData(input, order)})">
     <i class="fas fa-angle-double-left"></i>
     </button>
 
     <button id="previews-page-btn" class="pagination-previous" ${
       offset === 0 && "disabled"
-    } onclick="previewsPage(${() => fetchData(input, order)})">
+    } onclick="paginaAnterior(${() => fetchData(input, order)})">
     <i class="fas fa-angle-left"></i>
     </button>
     
     <button id="next-page-btn" class="pagination-next" ${
       offset === resultsCount - (resultsCount % 20) && "disabled"
-    } onclick="nextPage(${() => fetchData(input, order)})">
+    } onclick="paginaSiguiente(${() => fetchData(input, order)})">
     <i class="fas fa-angle-right"></i>
     </button>
 
     <button id="last-page-btn" class="last-page pagination-next" ${
       offset === resultsCount - (resultsCount % 20) && "disabled"
-    } onclick="lastPage(${() => fetchData(input, order)})">
+    } onclick="ultimaPagina(${() => fetchData(input, order)})">
     <i class="fas fa-angle-double-right"></i>
     </button>
   `;
@@ -172,7 +172,7 @@ const printCharactersComic = (arr, containerText, container) => {
                 <p class="is-size-6 has-text-weight-bold mt-0">${arr.length} Resultado(s)</p>`;
 
         box += `
-        <div class="column is-2" onclick="getCharacterId(${id})">
+        <div class="column is-2" onclick="fetchCharacterId(${id})">
             <div class="card">
                 <figure class="image is-4by5 personaje-container">
                     <a href="#">
@@ -190,25 +190,25 @@ const printCharactersComic = (arr, containerText, container) => {
   containerPaginador.innerHTML = `
     <button id="first-page-btn" class="first-page pagination-next" ${
       offset === 0 && "disabled"
-    } onclick="firstPage(${() => fetchPersonajes(input, order)})">
+    } onclick="primerPagina(${() => fetchPersonajes(input, order)})">
     <i class="fas fa-angle-double-left"></i>
     </button>
 
     <button id="previews-page-btn" class="pagination-previous" ${
       offset === 0 && "disabled"
-    } onclick="previewsPage(${() => fetchPersonajes(input, order)})">
+    } onclick="paginaAnterior(${() => fetchPersonajes(input, order)})">
     <i class="fas fa-angle-left"></i>
     </button>
     
     <button id="next-page-btn" class="pagination-next" ${
        offset === 0 && "disabled"
-    } onclick="nextPage(${() => fetchPersonajes(input, order)})">
+    } onclick="paginaSiguiente(${() => fetchPersonajes(input, order)})">
     <i class="fas fa-angle-right"></i>
     </button>
 
     <button id="last-page-btn" class="last-page pagination-next" ${
        offset === 0 && "disabled"
-    } onclick="lastPage(${() => fetchPersonajes(input, order)})">
+    } onclick="ultimaPagina(${() => fetchPersonajes(input, order)})">
     <i class="fas fa-angle-double-right"></i>
     </button>
   `;  
@@ -238,7 +238,7 @@ const printCharactersComic = (arr, containerText, container) => {
                 <h3 class="title title-color">${name}</h3>
                 <h4 class="has-text-weight-bold m-0 mt-3 mb-2">Descripción:</h4>
                 <p class="has-text-justified pr-6">${description ? description : 'Sin información'}</p>
-                <button class="button is-dark mt-3" onclick="getId(${idBtnRegresar})">Regresar</button>
+                <button class="button is-dark mt-3" onclick="fetchId(${idBtnRegresar})">Regresar</button>
             </div>
         </div>
         `
@@ -285,7 +285,7 @@ const printComicsCharacter = (arr, num) => {
         const pathNonFoundWanted = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny";
               
         box += `        
-            <div class="column is-full-mobile is-one-third-tablet is-one-fifth-desktop box-comic-character" onclick="getId(${id})">
+            <div class="column is-full-mobile is-one-third-tablet is-one-fifth-desktop box-comic-character" onclick="fetchId(${id})">
                 <figure>
                     <a>
                         <img class="height_img" src="${path === pathNonFoundNowanted ? pathNonFoundWanted : path}.${extension}" alt="${title}">
@@ -300,25 +300,25 @@ const printComicsCharacter = (arr, num) => {
     containerPaginador.innerHTML = `
     <button id="first-page-btn" class="first-page pagination-next" ${
       offset === 0 && "disabled"
-    } onclick="firstPage(${() => getCharacterId(characterId)})">
+    } onclick="primerPagina(${() => fetchCharacterId(characterId)})">
     <i class="fas fa-angle-double-left"></i>
     </button>
 
     <button id="previews-page-btn" class="pagination-previous" ${
       offset === 0 && "disabled"
-    } onclick="previewsPage(${() => getCharacterId(characterId)})">
+    } onclick="paginaAnterior(${() => fetchCharacterId(characterId)})">
     <i class="fas fa-angle-left"></i>
     </button>
     
     <button id="next-page-btn" class="pagination-next" ${
               offset === resultsCount - (resultsCount % 20) && "disabled"
-            } onclick="nextPage(${() => getCharacterId(characterId)})">
+            } onclick="paginaSiguiente(${() => fetchCharacterId(characterId)})">
     <i class="fas fa-angle-right"></i>
     </button>
 
     <button id="last-page-btn" class="last-page pagination-next" ${
               offset === resultsCount - (resultsCount % 20) && "disabled"
-            } onclick="lastPage(${() => getCharacterId(characterId)})">
+            } onclick="ultimaPagina(${() => fetchCharacterId(characterId)})">
     <i class="fas fa-angle-double-right"></i>
     </button>
   `;

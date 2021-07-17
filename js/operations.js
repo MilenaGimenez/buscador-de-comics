@@ -10,13 +10,6 @@ const searchType = document.getElementById('select-tipo');
 const searchOrder = document.getElementById('search-order');
 const searchBtn = document.getElementById('search-btn');
 
-/* ------------- Botones del paginador -------------  */
-const btnFirst = document.getElementById('btn-first');
-const btnPrevious = document.getElementById('btn-previous');
-const btnNext = document.getElementById('btn-next');
-const btnLast = document.getElementById('btn-last');
-
-
 /* ------------- Variables para el buscador ------------- */
 let offset = 0;
 let resultsCount = 0
@@ -69,18 +62,19 @@ const fetchPersonajes = (input, order) => {
 
 /* ------------- Fetch de Id de los comics -------------  */
 let comicId = '';
-const getId = id => {    
+
+const fetchId = id => {    
     const url = `https://gateway.marvel.com/v1/public/comics/${id}?ts=${timestamp}&apikey=${publica}&hash=${hash}`;
     fetch(url)
       .then(resp => resp.json())
       .then(obj => printDetailComic(obj.data.results))
       comicId = id
-      getCharacterComicId(comicId)
+      fetchCharacterComicId(comicId)
       return comicId
 };
 
 /* ------------- Fetch de Id de los personajes del comic -------------  */
-const getCharacterComicId = (id) => {
+const fetchCharacterComicId = (id) => {
     let offsetComic = 0; 
     const url = `https://gateway.marvel.com/v1/public/comics/${id}/characters?limit=5&offset=${offsetComic}&ts=${timestamp}&apikey=${publica}&hash=${hash}`
     fetch(url)
@@ -98,7 +92,7 @@ const getCharacterComicId = (id) => {
 
 /* ------------- Fetch de Id del personaje -------------  */
 let characterId = '';
-const getCharacterId = (id) => {
+const fetchCharacterId = (id) => {
     resultsCount = undefined;
     const url = `https://gateway.marvel.com/v1/public/characters/${id}?&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`
     fetch(url)
@@ -109,12 +103,12 @@ const getCharacterId = (id) => {
         })
         .catch(err => console.error(err))
     characterId = id
-    getComicsCharacterId(characterId)
+    fetchComicsCharacterId(characterId)
     return characterId
 };
 
 /* ------------- Fetch de Id de los comics según el personaje -------------  */
-const getComicsCharacterId = (id) => {
+const fetchComicsCharacterId = (id) => {
     const url = `https://gateway.marvel.com/v1/public/characters/${id}/comics?&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`;
     fetch(url)
         .then(response => response.json())
@@ -141,7 +135,7 @@ const fetchCharacters = (input, order) => {
 };
 
 /* ------------- Función de buscar por tipo -------------  */
-const searchURLUpdate = () => {
+const buscadorTipo = () => {
     offset = 0;
     input = searchInput.value;
     type = searchType.value;
@@ -177,34 +171,34 @@ searchType.addEventListener('change', () => {
 
 /* ------------- Botón buscar -------------  */
 searchBtn.addEventListener('click', () => {
-    searchURLUpdate()
+    buscadorTipo()
     containerCharacterInfo.classList.add('is-hidden')
     console.log(input = '');
 });
 
 /* ------------- Funciones de paginador -------------  */
-const firstPage = (func) => {
+const primerPagina = (func) => {
     offset = 0;
     func();
     pageNumber = 1;
     return offset;
   };
   
-  const previewsPage = (func) => {
+  const paginaAnterior = (func) => {
     offset -= 20;
     func();
     pageNumber = Math.floor(offset / 20) + 1;
     return offset;
   };
   
-  const nextPage = (func) => {
+  const paginaSiguiente = (func) => {
     offset += 20;
     func();
     pageNumber = Math.floor(offset / 20) + 1;
     return offset;
   };
   
-  const lastPage = (func) => {
+  const ultimaPagina = (func) => {
     const isExact = resultsCount % 20 === 0;
     const pages = Math.floor(resultsCount / 20);
     offset = (isExact ? pages - 1 : pages) * 20;
