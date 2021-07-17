@@ -215,7 +215,11 @@ const searchURLUpdate = () => {
 
 }
 
-searchBtn.addEventListener('click', searchURLUpdate);
+searchBtn.addEventListener('click', () => {
+    searchURLUpdate()
+    containerCharacterInfo.classList.add('is-hidden')
+    console.log(input = '');
+});
 
 searchType.addEventListener('change', () => {
     type = searchType.value
