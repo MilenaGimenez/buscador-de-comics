@@ -19,6 +19,7 @@ let comicIdPrueba = 0;
 /* Paginador pagina de inicio */
 
 const containerPaginador = document.getElementById('container-pagination');
+/* const containerPaginador2 = document.getElementById('container-pagination2'); */
 // const crearPaginador = () => {
 //     let box
 //     box = `
@@ -127,11 +128,11 @@ const printDetailComic = arr => {
     
     containerCharacterInfo.classList.add('is-hidden');
 
-    comicCharactersResults.classList.remove('is-hidden');
-    const prueba = document.getElementById('root').firstChild
-    console.log(prueba);
+    comicCharactersResults.classList.remove('is-hidden');    
 
     results.classList.add('is-hidden');
+
+    //containerPaginador.classList.add('is-hidden')
     //containerComicInfo.classList.add('is-hidden');
     let cajita = '';
     
@@ -169,10 +170,37 @@ const printDetailComic = arr => {
     })
     root.innerHTML = cajita   
     myFunction2(x)
+
+    /* containerPaginador.innerHTML = `
+    <button id="first-page-btn" class="first-page pagination-next" ${
+      offset === 0 && "disabled"
+    } onclick="firstPage(${() => fetchTotalComics()})">
+    <i class="fas fa-angle-double-left"></i>
+    </button>
+
+    <button id="previews-page-btn" class="pagination-previous" ${
+      offset === 0 && "disabled"
+    } onclick="previewsPage(${() => fetchTotalComics()})">
+    <i class="fas fa-angle-left"></i>
+    </button>
+    
+    <button id="next-page-btn" class="pagination-next" ${
+      offset === resultsCount - (resultsCount % 20) && "disabled"
+    } onclick="nextPage(${() => fetchTotalComics()})">
+    <i class="fas fa-angle-right"></i>
+    </button>
+
+    <button id="last-page-btn" class="last-page pagination-next" ${
+      offset === resultsCount - (resultsCount % 20) && "disabled"
+    } onclick="lastPage(${() => fetchTotalComics()})">
+    <i class="fas fa-angle-double-right"></i>
+    </button>
+`; */
   }
 
 //----------------Print de los personajes (nuevo codigo)
 const printCharactersComic = (arr, containerText, container) => {
+    //containerPaginador.classList.add('is-hidden')
     if(arr.length === 0){
         containerText.innerHTML = `
             <h3 class="title mb-2 title-color">Personajes</h3>
@@ -205,34 +233,36 @@ const printCharactersComic = (arr, containerText, container) => {
         </div>`
     });
   container.innerHTML = box
+  containerPaginador.innerHTML = `
+    <button id="first-page-btn" class="first-page pagination-next" ${
+      offset === 0 && "disabled"
+    } onclick="firstPage(${() => fetchPersonajes(input, order)})">
+    <i class="fas fa-angle-double-left"></i>
+    </button>
+
+    <button id="previews-page-btn" class="pagination-previous" ${
+      offset === 0 && "disabled"
+    } onclick="previewsPage(${() => fetchPersonajes(input, order)})">
+    <i class="fas fa-angle-left"></i>
+    </button>
+    
+    <button id="next-page-btn" class="pagination-next" ${
+       offset === 0 && "disabled"
+    } onclick="nextPage(${() => fetchPersonajes(input, order)})">
+    <i class="fas fa-angle-right"></i>
+    </button>
+
+    <button id="last-page-btn" class="last-page pagination-next" ${
+       offset === 0 && "disabled"
+    } onclick="lastPage(${() => fetchPersonajes(input, order)})">
+    <i class="fas fa-angle-double-right"></i>
+    </button>
+`;
+  
   };
 
 
   //----------------Print de info de los personajes (nuevo codigo)
-/* const printCharactersInfo = (arr) => {    
-    let box = '';
-    arr.forEach(character => {
-        const {name, thumbnail: {extension, path}, id, description} = character;
-              
-        box += `
-        <div class="columns">
-            <div class="column is-6">
-                <figure class="image is-2by3">
-                    <img src="${path}.${extension}" alt="${name}">
-                </figure>
-            </div>
-
-            <div class="column is-6">
-                <h3>${name}</h3>
-                <p>${description}</p>
-
-                <button onclick="fetchData()">Regresar</button>
-            </div>
-         </div>
-         `
-    });
-    root.innerHTML = box
-  }; */
 
   const printInfoCharater = (arr) =>{
     comicCharactersInfo.classList.add('is-hidden');
@@ -317,19 +347,35 @@ const printComicsCharacter = (arr, num) => {
 
             
         `  
-        /* if(arr[0].comics.available == 0){
-            comicCharactersResults.innerHTML = `
-                <h3 class="title mb-2 title-color">Comics</h3>
-                <p class="is-size-6 has-text-weight-bold mt-0 label-select">${arr[0].comics.available} Resultado(s)</p>
-                <p class="subtitle has-text-weight-bold mt-6 title-color">No se han encontrado resultados</p>`
-        } else{
-            comicCharactersResults.innerHTML = `
-            <h3 class="title mb-2 title-color">Comics</h3>
-            <p class="is-size-6 has-text-weight-bold mt-0 label-select">${arr[0].comics.available} Resultado(s)</p>`
-        } */
+        
     })
 
     characterInfo.innerHTML = box
+    containerPaginador.innerHTML = `
+    <button id="first-page-btn" class="first-page pagination-next" ${
+      offset === 0 && "disabled"
+    } onclick="firstPage(${() => getCharacterId(characterId)})">
+    <i class="fas fa-angle-double-left"></i>
+    </button>
+
+    <button id="previews-page-btn" class="pagination-previous" ${
+      offset === 0 && "disabled"
+    } onclick="previewsPage(${() => getCharacterId(characterId)})">
+    <i class="fas fa-angle-left"></i>
+    </button>
+    
+    <button id="next-page-btn" class="pagination-next" ${
+      offset === resultsCount - (resultsCount % 20) && "disabled"
+    } onclick="nextPage(${() => getCharacterId(characterId)})">
+    <i class="fas fa-angle-right"></i>
+    </button>
+
+    <button id="last-page-btn" class="last-page pagination-next" ${
+      offset === resultsCount - (resultsCount % 20) && "disabled"
+    } onclick="lastPage(${() => getCharacterId(characterId)})">
+    <i class="fas fa-angle-double-right"></i>
+    </button>
+`;
 };
 
 // // Pagination

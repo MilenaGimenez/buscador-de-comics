@@ -59,8 +59,15 @@ fetchTotalComics()
 
 //----Fetch personajes
 
-const fetchPersonajes = () => {
-    const url = `https://gateway.marvel.com:443/v1/public/characters?apikey=${publica}&hash=${hash}`
+const fetchPersonajes = (input, order) => {
+    // const url = `https://gateway.marvel.com:443/v1/public/characters?apikey=${publica}&hash=${hash}`
+    resultsCount = undefined;
+    let url;
+    if (input !== "") {
+        url = `https://gateway.marvel.com/v1/public/characters?nameStartsWith=${input}&orderBy=${order}&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`;
+    } else {
+        url = `https://gateway.marvel.com/v1/public/characters?&orderBy=${order}&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`;
+    }
     fetch(url)
     .then(respuesta => respuesta.json())
     .then(datos => printPersonajes(datos.data.results))
@@ -126,7 +133,7 @@ const getCharacterComicId = (id) => {
 
 let characterId = '';
 const getCharacterId = (id) => {
-    const url = `https://gateway.marvel.com/v1/public/characters/${id}?ts=${timestamp}&apikey=${publica}&hash=${hash}`
+    const url = `https://gateway.marvel.com/v1/public/characters/${id}?&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`
     fetch(url)
         .then(response => response.json())
         .then(obj => printInfoCharater(obj.data.results))
