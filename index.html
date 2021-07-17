@@ -23,157 +23,118 @@
   <meta property="twitter:description" content="Aplicación buscador de cómics de Marvel. Encuentra información de los comics, personajes y más.">
   <meta property="twitter:image" content="Aplicación buscador de cómics de Marvel. Encuentra información de los comics, personajes y más.">
 
-  
+  <!-- Links favicon, googlefonts, fontawesome, bulma, css -->
   <link rel="shortcut icon" href="./assets/favicon.png" type="image/x.icon">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+  <link rel="stylesheet" href="./styles/css/style.css">
 
-
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
-    <link rel="stylesheet" href="./styles/css/style.css">
-    <title>Buscador MARVEL Cómics</title>
+  <title>Buscador MARVEL Cómics</title>
 </head>
 <body>
-    <header>
-        <section class="column logo-container has-background-black">
-          <h1 class="logo has-text-white is-size-2 has-text-centered american-font">BUSCADOR <img src="./assets/Marvel_Logo.svg.png" alt="" class="marvel-logo mx-3"> COMICS</h1>
-        </section>
-    </header>
-   
-
-    <section class="hero is-halfheight img">
+  <!-- ------------- Título y logo ------------- -->
+  <header>
+    <section class="column logo-container has-background-black">
+      <h1 class="logo has-text-white is-size-2 has-text-centered american-font">BUSCADOR <img src="./assets/Marvel_Logo.svg.png" alt="" class="marvel-logo mx-3"> COMICS</h1>
     </section>
+  </header>
+   
+  <!-- ------------- Imagen de portada ------------- -->
+  <section class="hero is-halfheight img"></section>
 
-    <main class="container">
+  <!-- ------------- Contenedor principal ------------- -->
+  <main class="container">
 
-      <div class="go-top-container">
-        <div class="go-top-button">
-          <i class="fas fa-chevron-up"></i>
-        </div>
+    <!-- Botón ir arriba -->
+    <div class="go-top-container">
+      <div class="go-top-button">
+        <i class="fas fa-chevron-up"></i>
       </div>
-      
-      <div class="column">
-        <h2 class="is-size-4 mt-5 american-font">Busqueda</h2>
-          <nav class="navbar my-5" role="navigation" aria-label="main navigation">
-            <div id="navbarBasicExample" class="navbar-menu is-align-items-center busqueda">
-                <input class="input" type="text" placeholder="Normal input" id="search-input">
-              <section class="banana">
-                <div class="navbar-start">
-                  <div class="navbar-item">
-                    <label class="navbar-label">
-                      Tipo
-                    </label>
-                    <select class="navbar-select" id="select-tipo">
-                      <option value="comics">
-                        Comics
-                      </option>
-                      <option value="characters">
-                        Personajes
-                      </option>
-                    </select>
-                  </div>
-                  <div class="navbar-item mx-2">
-                    <label class="navbar-label">
-                      Orden
-                    </label>
-                    <select id="search-order" class="navbar-select">
-                      <option class="navbar-item" value='title'>A/Z</option>
-                      <option class="navbar-item"value='-title'>Z/A</option>
-                      <option class="navbar-item" value='-focDate'>Más nuevos</option>
-                      <option class="navbar-item" value='focDate'>Más viejos</option>
-                  </select>
-  
-                  </div>
-                </div>
-                <div class="navbar-end">
-                  <div class="navbar-item">
-                    <div class="buttons">                   
-                      <button id="search-btn" class="button is-light">BUSCAR</button>
-                    </div>
-                  </div>
-                </div>
-              </section>
-            </div>
-          </nav>
-        <!-- <div class="mb-5">
-          <h3 class="is-size-5 american-font">Resultados</h3>
-          <span class="">0 Resultados</span>
-        </div> -->
-        <div id="results"></div>      
-        <div id="root" class="columns is-flex-wrap-wrap is-mobile">  
-        </div>
-        
+    </div>
 
-        <!-- Nuevo codigo -->
+    <!--  ------------- Buscador  ------------- -->
+    <div class="column">
+      <h2 class="is-size-4 mt-5 american-font">Busqueda</h2>
+
+        <nav class="navbar my-5" role="navigation" aria-label="main navigation">
+          <div id="navbarBasicExample" class="navbar-menu is-align-items-center busqueda">
+            <input class="input" type="text" placeholder="Normal input" id="search-input">
+
+            <section class="filters-input">
+              <div class="navbar-start">
+                <article class="navbar-item">
+                  <label class="navbar-label">Tipo</label>
+                  <select class="navbar-select" id="select-tipo">
+                    <option value="comics">Comics</option>
+                    <option value="characters">Personajes</option>
+                  </select>
+                </article>
+
+                <article class="navbar-item mx-2">
+                  <label class="navbar-label">Orden</label>
+                  <select id="search-order" class="navbar-select">
+                    <option class="navbar-item" value='title'>A/Z</option>
+                    <option class="navbar-item"value='-title'>Z/A</option>
+                    <option class="navbar-item" value='-focDate'>Más nuevos</option>
+                    <option class="navbar-item" value='focDate'>Más viejos</option>
+                  </select>  
+                </article>
+              </div>
+
+              <article class="navbar-end">
+                <div class="navbar-item">
+                  <div class="buttons">                   
+                    <button id="search-btn" class="button is-light">BUSCAR</button>
+                  </div>
+                </div>
+              </article>
+
+            </section>
+          </div>
+        </nav>
+
+        <!-- Cantidad de resultados -->
+        <section id="results"></section>    
+
+        <!-- Contenedor de comics -->
+        <section id="root" class="columns is-flex-wrap-wrap is-mobile">  
+        </section>
+        
+        <!-- Contenedor de resultados de comics -->        
         <section id="container-comic-info" class="container mb-5">
-          <!-- <div id="comic-info" class="p-6"></div> -->
           <div id="comic-characters-results" class="p-6"></div>
           <div id="comic-characters-info" class="columns is-flex is-flex-wrap-wrap px-6 pt-0"></div>
         </section>
 
-        <!-- <section id="container-character-info" class="columns is-flex-wrap-wrap"> -->
+        <!-- Contenedor de resultados de personajes -->
         <section id="container-character-info" class="columns is-flex is-flex-wrap-wrap px-6 pt-0">
           <div id="character-comics-results" class="column my-2	"></div>
             <div id="character-info" class="columns is-flex-wrap-wrap"></div>
-            <div id="character-comics-info" class="columns is-flex is-flex-wrap-wrap px-6 pt-0"></div>
         </section>
-        <!-- <section id="container-comics" class="container mb-5">
-          <h2 class="subtitle has-text-weight-bold mb-2 title-color">Resultados</h2>
-          <p class="mb-5 has-text-weight-bold has-text-grey"><span id="total-result">0</span> resultados</p>
-          <div id="main-container" class="columns is-flex-wrap-wrap"></div>
-      </section>
-      <section id="container-comic-info" class="container mb-5 is-hidden">
-          <div id="comic-info" class="p-6"></div>
-          <div id="comic-characters-results" class="p-6"></div>
-          <div id="comic-characters-info" class="columns is-flex is-flex-wrap-wrap px-6 pt-0"></div>
-      </section>
-      <section id="container-character-info" class="container mb-5 is-hidden">
-          <div id="character-info" class="p-6"></div>
-          <div id="character-comics-results" class="p-6"></div>
-          <div id="character-comics-info" class="columns is-flex is-flex-wrap-wrap px-6 pt-0"></div>
-      </section> -->
-        <!-- Fin nuevo codigo -->
         
-        <div id="root-personajes" class="columns is-flex-wrap-wrap is-hidden"></div>
-      </main>
+        <!-- Contendor de personajes -->
+        <section id="root-personajes" class="columns is-flex-wrap-wrap is-hidden"></section>
+    </div>
+  </main>
     
-      <section class="container my-6 has-text-centered">
-        <!-- <nav class="pagination" role="navigation" aria-label="pagination"> -->
-          <div id="container-pagination"></div>
-          <!-- <div id="container-pagination2"></div> -->
-          <!-- <button id="btn-first" class="first-page pagination-next" disabled><i class="fas fa-angle-double-left"></i></button>
-
-          <button id='btn-previous' class="pagination-previous" disabled><i class="fas fa-angle-left"></i></button>
-
-          <button id="btn-next" class="pagination-next"><i class="fas fa-angle-right"></i></button>
-
-          <button id="btn-last" class="last-page pagination-next"><i class="fas fa-angle-double-right"></i></button> -->
-          
-          <!-- <ul class="pagination-list">
-            <li>
-              <a class="pagination-link is-current" aria-label="Page 1" aria-current="page">1</a>
-            </li>
-            <li>
-              <a class="pagination-link" aria-label="Goto page 2">2</a>
-            </li>
-            <li>
-              <a class="pagination-link" aria-label="Goto page 3">3</a>
-            </li>
-          </ul> -->
-        <!-- </nav> -->
-      </section>
+  <!--  ------------- Paginador -------------  -->
+  <section class="container my-6 has-text-centered">
+      <div id="container-pagination"></div>
+  </section>
     
-      <footer class="hero">
-        <div class="has-background-black has-text-white is-size-5 has-text-centered py-6 ">Hecho por 
-          <a href="https://github.com/MilenaGimenez" class="has-text-grey roboto-font">Milena Gimenez</span>
-        </div>
-      </footer>
+  <!--  ------------- Footer -------------  -->
+  <footer class="hero">
+    <div class="has-background-black has-text-white is-size-5 has-text-centered py-6 ">Hecho por 
+      <a href="https://github.com/MilenaGimenez" class="has-text-grey roboto-font">Milena Gimenez</span>
+    </div>
+  </footer>
 
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.18.0/js/md5.min.js" integrity="sha512-Hmp6qDy9imQmd15Ds1WQJ3uoyGCUz5myyr5ijainC1z+tP7wuXcze5ZZR3dF7+rkRALfNy7jcfgS5hH8wJ/2dQ==" crossorigin="anonymous"></script>
-    <script src="./js/operations.js"></script>
-    <script src="./js/print.js"></script>
+  <!--  ------------- Scripts -------------  -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.18.0/js/md5.min.js" integrity="sha512-Hmp6qDy9imQmd15Ds1WQJ3uoyGCUz5myyr5ijainC1z+tP7wuXcze5ZZR3dF7+rkRALfNy7jcfgS5hH8wJ/2dQ==" crossorigin="anonymous"></script>
+  <script src="./js/operations.js"></script>
+  <script src="./js/print.js"></script>
+  
 </body>
 </html>

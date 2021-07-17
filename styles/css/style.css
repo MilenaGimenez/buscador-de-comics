@@ -1,11 +1,15 @@
+/* Import de la fuente American Captain */
 @font-face {
   font-family: "American Captain";
   src: url("../../assets/fonts/american_captain/American Captain.ttf");
 }
+
+/* Fuente principal */
 * {
   font-family: "Roboto", sans-serif;
 }
 
+/* Logo y portada */
 .img {
   background-image: url("https://frontend-proyecto-comics.adaitw.org/hero.jpg");
   background-position: bottom;
@@ -23,21 +27,6 @@
 
 .american-font {
   font-family: "American Captain";
-}
-
-
-/* Card de personajes */
-.personaje-container {
-  overflow: hidden;
-  width: 100%;
-}
-
-.personaje-thumbnail {
-  transition: 0.2s;
-}
-
-.personaje-thumbnail:hover {
-  transform: scale(1.1);
 }
 
 /* Navbar busqueda */
@@ -58,126 +47,38 @@
   border: 1px solid #a1a1a1;
 }
 
-/*# sourceMappingURL=style.css.map */
-
-/* .comic{
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
- */
-
- 
-
- @media (max-width: 1023px) {
-  .busqueda {
-    /* background-color: orange; */
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-   }
-   .banana{
-     display: flex;
-     justify-content: space-between;
-     
-     width: 100%;
-   }
-
-   .navbar-start{
-     
-     display: flex;
-     width: 100%;
-     
-   }
-
-   .navbar-end{
-     
-     display: flex;
-     align-items: center;
-   }
-
-   .label-select{
-     width: 11.5rem;
-   }
+/* Card de personajes */
+.personaje-container {
+  overflow: hidden;
+  width: 100%;
 }
 
+.personaje-thumbnail {
+  transition: 0.2s;
+}
 
-.banana{
-  /* background-color: red; */
+.personaje-thumbnail:hover {
+  transform: scale(1.1);
+}
+
+.filters-input{
   display: flex;
 }
 
-/* .navbar-item{
-  border: 1px solid green;
-}
- */
 .buttons{
-  /* margin: 0 0.5rem; */
-  margin-left: 0.5rem;
-  
+  margin-left: 0.5rem;  
 }
 
-
-
-@media (max-width: 415px) {
-  
-   .navbar-start{
-    
-     display: flex;
-     width: 100%;     
-   }
-
-   .navbar-end{
-     
-     display: flex;
-     align-items: center;
-   }
-
-   .navbar-select{
-     width: 5.5rem;
-     font-size: 0.9rem;
-     padding: 0.4rem;
-   }
-
-/*    .buttons{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-   } */
-
-   .buttons button{
-      border: 1px solid red;
-      width: 100%;
-      font-size: 0.9rem;
-      padding: 0.4rem;
-      
-   }
-
-   .navbar-item{
-     padding: 0;
-   }
-
-    .marvel-logo{
-    width: 60px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 10px;
-   }
-}
-
-.patata{
+.box-detail{
   margin-right: 0px
 }
 
-.panapa{
+.box-comic-character{
   padding-right: 0px;
 }
 
 
-/* boton subir arriba */
+/* Botón subir arriba */
 .go-top-container{
   position: fixed;
   bottom: 1rem;
@@ -224,6 +125,7 @@
   transform: translate(-50%, -50%) scale(1);
 }
 
+/* Animación del botón subir arriba */
 @keyframes popup {
   0%{
     width: 0rem;
@@ -238,3 +140,72 @@
     height: 4rem;
   }
 }
+
+/* Responsive */
+@media (max-width: 1023px) {
+  .busqueda {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+   }
+
+   .filters-input{
+     display: flex;
+     justify-content: space-between;     
+     width: 100%;
+   }
+
+   .navbar-start{     
+     display: flex;
+     width: 100%;     
+   }
+
+   .navbar-end{     
+     display: flex;
+     align-items: center;
+   }
+
+   .label-select{
+     width: 11.5rem;
+   }
+}
+
+@media (max-width: 415px) {  
+  .navbar-start{    
+    display: flex;
+    width: 100%;     
+  }
+
+  .navbar-end{     
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar-select{
+    width: 5.5rem;
+    font-size: 0.9rem;
+    padding: 0.4rem;
+  }
+
+  .buttons button{
+     border: 1px solid red;
+     width: 100%;
+     font-size: 0.9rem;
+     padding: 0.4rem;      
+  }
+
+  .navbar-item{
+    padding: 0;
+  }
+
+ .marvel-logo{
+   width: 60px;
+   height: 40px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin-top: 10px;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
