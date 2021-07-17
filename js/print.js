@@ -127,7 +127,7 @@ const printDetailComic = arr => {
       const pathNonFoundWanted = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny";
 
       cajita += `
-      <div class="columns p-5 patata">
+      <div class="columns p-5 box-detail">
             <div class="column is-one-quarter">
                 <figure class="img-detalle">
                 <img src="${path === pathNonFoundNowanted ? pathNonFoundWanted : path}.${extension}" alt="${title}" class="img-comic-info">
@@ -228,7 +228,7 @@ const printCharactersComic = (arr, containerText, container) => {
         const pathNonFoundWanted = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny";
         
         box += `
-        <div class="columns p-5 patata">
+        <div class="columns p-5 box-detail">
             <div class="column is-one-quarter">
                 <figure class="img-detalle">
                 <img src="${path === pathNonFoundNowanted ? pathNonFoundWanted : path}.${extension}" alt="${name}" class="img-comic-info">
@@ -285,7 +285,7 @@ const printComicsCharacter = (arr, num) => {
         const pathNonFoundWanted = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny";
               
         box += `        
-            <div class="column is-full-mobile is-one-third-tablet is-one-fifth-desktop panapa" onclick="getId(${id})">
+            <div class="column is-full-mobile is-one-third-tablet is-one-fifth-desktop box-comic-character" onclick="getId(${id})">
                 <figure>
                     <a>
                         <img class="height_img" src="${path === pathNonFoundNowanted ? pathNonFoundWanted : path}.${extension}" alt="${title}">
