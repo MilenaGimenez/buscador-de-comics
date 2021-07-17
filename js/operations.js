@@ -37,9 +37,6 @@ const fetchData = (input, order) => {
     .then(respuesta => respuesta.json())
     .then(obj => printData(obj.data.results, obj.data.total))
     .catch(error => console.error(error))
-    console.log(offset);
-    console.log(url);
-    console.log(`https://gateway.marvel.com/v1/public/comics?&orderBy=title&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`);
 };
 
 
