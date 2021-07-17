@@ -163,7 +163,7 @@ const printDetailComic = arr => {
             <h4 class="has-text-weight-bold m-0 mt-3 mb-2">Descripción:</h4>
             <p class="has-text-justified pr-5">${description ? description : 'Sin información'}</p>    
                    
-            <button class="button is-dark mt-3" onclick="fetchData()">Regresar</button>
+            <button class="button is-dark mt-3" onclick="fetchData(input, order)">Regresar</button>
             </div>
             
         </div> `
@@ -276,6 +276,7 @@ const printCharactersComic = (arr, containerText, container) => {
         const {name, thumbnail: {extension, path}, description} = character;
         const pathNonFoundNowanted = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available";
         const pathNonFoundWanted = "https://i.pinimg.com/564x/6d/af/a0/6dafa08555ee450d9d61061c7bc23cb5";
+        
         box += `
         <div class="columns p-5 patata">
             <div class="column is-one-quarter">
