@@ -15,9 +15,7 @@ const searchBtn = document.getElementById('search-btn');
 
 
 
-/* const containerComics = document.getElementById('container-comics');
-const containerComicInfo = document.getElementById('container-comic-info');
-const containerCharacterInfo = document.getElementById('container-character-info'); */
+
 
 let offset = 0;
 let resultsCount = 0
