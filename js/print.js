@@ -294,7 +294,7 @@ const printCharactersComic = (arr, containerText, container) => {
     })
     root.innerHTML = box;
 
-    /* if(arr[0].comics.available == 0){
+    if(arr[0].comics.available == 0){
         characterComicsResults.innerHTML = `
             <h3 class="title mb-2 title-color">Comics</h3>
             <p class="is-size-6 has-text-weight-bold mt-0 label-select">${arr[0].comics.available} Resultado(s)</p>
@@ -303,7 +303,7 @@ const printCharactersComic = (arr, containerText, container) => {
         characterComicsResults.innerHTML = `
         <h3 class="title mb-2 title-color">Comics</h3>
         <p class="is-size-6 has-text-weight-bold mt-0 label-select">${arr[0].comics.available} Resultado(s)</p>`
-    } */
+    }
 };
         
 const printComicsCharacter = (arr, num) => {
@@ -365,51 +365,20 @@ const printComicsCharacter = (arr, num) => {
     </button>
     
     <button id="next-page-btn" class="pagination-next" ${
-      offset === resultsCount - (resultsCount % 20) && "disabled"
-    } onclick="nextPage(${() => getCharacterId(characterId)})">
+              offset === resultsCount - (resultsCount % 20) && "disabled"
+            } onclick="nextPage(${() => getCharacterId(characterId)})">
     <i class="fas fa-angle-right"></i>
     </button>
 
     <button id="last-page-btn" class="last-page pagination-next" ${
-      offset === resultsCount - (resultsCount % 20) && "disabled"
-    } onclick="lastPage(${() => getCharacterId(characterId)})">
+              offset === resultsCount - (resultsCount % 20) && "disabled"
+            } onclick="lastPage(${() => getCharacterId(characterId)})">
     <i class="fas fa-angle-double-right"></i>
     </button>
 `;
 };
 
-// // Pagination
 
-const firstPage = (func) => {
-    offset = 0;
-    func();
-    pageNumber = 1;
-    return offset;
-  };
-  
-  const previewsPage = (func) => {
-    offset -= 20;
-    func();
-    pageNumber = Math.floor(offset / 20) + 1;
-    return offset;
-  };
-  
-  const nextPage = (func) => {
-    offset += 20;
-    func();
-    pageNumber = Math.floor(offset / 20) + 1;
-    return offset;
-  };
-  
-  const lastPage = (func) => {
-    const isExact = resultsCount % 20 === 0;
-    const pages = Math.floor(resultsCount / 20);
-    offset = (isExact ? pages - 1 : pages) * 20;
-    offset = resultsCount - (resultsCount % 20);
-    func();
-    pageNumber = Math.floor(offset / 20) + 1;
-    return offset;
-  };
 
 
 /* Responsive */

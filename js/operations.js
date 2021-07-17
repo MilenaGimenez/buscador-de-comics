@@ -133,10 +133,14 @@ const getCharacterComicId = (id) => {
 
 let characterId = '';
 const getCharacterId = (id) => {
+    resultsCount = undefined;
     const url = `https://gateway.marvel.com/v1/public/characters/${id}?&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`
     fetch(url)
         .then(response => response.json())
-        .then(obj => printInfoCharater(obj.data.results))
+        .then((obj) => {
+            printInfoCharater(obj.data.results)
+            resultsCount = obj.data.results[0].comics.available;
+        })
         .catch(err => console.error(err))
     characterId = id
     getComicsCharacterId(characterId)
@@ -144,7 +148,7 @@ const getCharacterId = (id) => {
 };
 
 const getComicsCharacterId = (id) => {
-    const url = `https://gateway.marvel.com/v1/public/characters/${id}/comics?ts=${timestamp}&apikey=${publica}&hash=${hash}`
+    const url = `https://gateway.marvel.com/v1/public/characters/${id}/comics?&limit=20&offset=${offset}&ts=${timestamp}&apikey=${publica}&hash=${hash}`;
     fetch(url)
         .then(response => response.json())
         .then(obj => {printComicsCharacter(obj.data.results, obj.data.total)
@@ -391,6 +395,39 @@ searchType.addEventListener('change', () => {
         `
     }
 })
+
+// // Pagination
+
+const firstPage = (func) => {
+    offset = 0;
+    func();
+    pageNumber = 1;
+    return offset;
+  };
+  
+  const previewsPage = (func) => {
+    offset -= 20;
+    func();
+    pageNumber = Math.floor(offset / 20) + 1;
+    return offset;
+  };
+  
+  const nextPage = (func) => {
+    offset += 20;
+    func();
+    pageNumber = Math.floor(offset / 20) + 1;
+    return offset;
+  };
+  
+  const lastPage = (func) => {
+    const isExact = resultsCount % 20 === 0;
+    const pages = Math.floor(resultsCount / 20);
+    offset = (isExact ? pages - 1 : pages) * 20;
+    offset = resultsCount - (resultsCount % 20);
+    func();
+    pageNumber = Math.floor(offset / 20) + 1;
+    return offset;
+  };
 
 window.onload = () => {
     fetchData(input, order);
